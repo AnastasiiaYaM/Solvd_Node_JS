@@ -10,7 +10,14 @@ arrOfStr.forEach(str => {
 const arrOfAbsNum = arrOfNum.map((num) => Math.abs(num));   // Math.abs() static method returns the absolute value of a number
 */
 
-const arrOfAbsNum = [9, 9, 8, 8, 8, 7, 7, 7, 9, 9, 8, 8, 7, 7, 8, 8, 9, 9, 9, 8, 8, 7, 8, 8, 9, 9, 9, 8, 7, 8, 9, 8, 7, 7, 8];
+// const arrOfAbsNum = [9, 9, 8, 8, 8, 7, 7, 7, 9, 9, 8, 8, 7, 7, 8, 8, 9, 9, 9, 8, 8, 7, 8, 8, 9, 9, 9, 8, 7, 8, 9, 8, 7, 7, 8];
+
+let num = 99888777998877889998878899987898778n;   // num to bigint
+// console.log(typeof num);
+
+const arrOfAbsNum = Array.from(String(num), Number);
+console.log(arrOfAbsNum);
+
 
 // 1st task - SUM 
 
