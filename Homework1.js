@@ -1,3 +1,4 @@
+/*
 let arrOfStr = ['1', '2,3', '-3', '2', '5', '8', '6', '3', '4', '1', '2', '3', '4', '5', '6', '7', '3', '4', '10', '11', '12', '13', '14', '15', '6', '3', '4','14', '15', '1', '30', '31'];
 
 const arrOfNum = [];
@@ -7,7 +8,9 @@ arrOfStr.forEach(str => {
 });
 
 const arrOfAbsNum = arrOfNum.map((num) => Math.abs(num));   // Math.abs() static method returns the absolute value of a number
+*/
 
+const arrOfAbsNum = [9, 9, 8, 8, 8, 7, 7, 7, 9, 9, 8, 8, 7, 7, 8, 8, 9, 9, 9, 8, 8, 7, 8, 8, 9, 9, 9, 8, 7, 8, 9, 8, 7, 7, 8];
 
 // 1st task - SUM 
 
