@@ -32,7 +32,15 @@ const divideByTwoArrEl = arrOfAbsNum.map(x => x / 2);
 
 const divideByTwoArrElAbs = divideByTwoArrEl.map(ele => ele.toFixed());  // the number will be rounded to the nearest integer (but returned as a string)
 
-console.log(divideByTwoArrElAbs);
+// console.log(divideByTwoArrElAbs);
+
+const arrOfNumDivideByTwoArrEl = [];
+
+divideByTwoArrElAbs.forEach(str => {                    
+  arrOfNumDivideByTwoArrEl.push(parseInt(str));              // parseInt() function parses a string argument and returns an integer
+});
+
+console.log(arrOfNumDivideByTwoArrEl);
 
 // 4th task - Multiplication
 
