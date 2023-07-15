@@ -20,8 +20,8 @@ return `${res}`;
 
 console.log('sum result fn', sumFn("99888777998877889998878899987898778", "99888777998877889998878899987898778"));
 
-// 2nd task - Substraction
 
+// 2nd task - Substraction
 
 const substractFn = (firstNum, secNum) => {
   let i = firstNum.length - 1;
@@ -43,6 +43,37 @@ return `${res}`;
 console.log('substraction result fn', substractFn("99888777998877889998878899987898778", "99888777998877889998878899987898770"));
 
 
+// 3rd task - Division
+
+const divideFn = (firstNum, secNum) => {
+  
+      let res = "";
+      let idx = 0;
+      let temp=firstNum[idx]-'0';
+      while (temp < secNum) {
+          temp = (temp * 10 + (firstNum[idx + 1]).charCodeAt(0) - ('0').charCodeAt(0));
+          idx += 1;
+      }
+
+      idx += 1;
+       
+      while(firstNum.length>idx) {
+          res += String.fromCharCode(Math.floor(temp / secNum) + ('0').charCodeAt(0));
+          temp = ((temp % secNum) * 10 + (firstNum[idx]).charCodeAt(0) - ('0').charCodeAt(0));
+          idx += 1;
+      }
+       
+      res += String.fromCharCode(Math.floor(temp / secNum) + ('0').charCodeAt(0));
+       
+      if(res.length==0)
+          return "0";
+      return res;
+  }
+   
+
+console.log('division result fn', divideFn("99888777998877889998878899987898778", "1"));
+
+
 // 4th task - Multiplication
 
 const multiplyFn = (firstNum, secNum) => {
@@ -58,12 +89,13 @@ const multiplyFn = (firstNum, secNum) => {
           res[p1] += Math.floor(sum / 10);
       }
   }
-  if (res[0] === 0) res.shift();
+  if (res[0] === 0) res.shift()
   return res.join('');
   
 }
 
 console.log('multiplication result fn', multiplyFn("99888777998877889998878899987898778", "99888777998877889998878899987898770"));
+
 
 
 /* 
