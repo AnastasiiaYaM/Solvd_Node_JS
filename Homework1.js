@@ -24,23 +24,36 @@ console.log('sum result fn', sumFn("99888777998877889998878899987898778", "99888
 // 2nd task - Subtraction
 
 const subtractFn = (firstNum, secNum) => {
-  let i = firstNum.length - 1;
-  let j = secNum.length - 1;
-  let sum = 0, carryover = 0, res = ' ';
-  while (i >= 0 || j >= 0) {
-    const x = firstNum[i] || 0;
-    const y = secNum[j] || 0;
-    sum = parseInt(x) - parseInt(y) - carryover;
-    carryover = Math.trunc(sum / 10);
-    res = (sum % 10) - res;
-    i--;
-    j--;
+  let f = firstNum.length;
+  let s = secNum.length;
+  firstNum = firstNum.split("").reverse().join("");
+  secNum = secNum.split("").reverse().join("");
+  let carryover = 0, res = ' ';
+  for (let i = 0; i < s; i++) {
+    let sub = ((firstNum[i].charCodeAt(0) -'0'.charCodeAt(0)) - (secNum[i].charCodeAt(0) - '0'.charCodeAt(0)) - carryover);
+    if (sub < 0) {
+      sub = sub + 10;
+      carryover = 1;
+    }
+    else
+    carryover = 0;
+  res += String.fromCharCode(sub + '0'.charCodeAt(0));
+        }
+        for (let i = s; i < f; i++) {
+          let sub = ((firstNum[i].charCodeAt(0) - '0'.charCodeAt(0)) - carryover);
+    if (sub < 0) {
+      sub = sub + 10;
+      carryover = 1;
+    }
+    else
+    carryover = 0;
+    res += String.fromCharCode(sub + '0'.charCodeAt(0));
   }
-if (carryover) res = carryover - res;
-return `${res}`;
-}
+  return res.split("").reverse().join("")
+    }
+          
 
-console.log('subtraction result fn', subtractFn("99888777998877889998878899987898778", "99888777998877889998878899987898770"));
+console.log('subtraction result fn', subtractFn("99888777998877889998878899987898778", "1"));
 
 
 // 3rd task - Division
