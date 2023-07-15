@@ -20,6 +20,29 @@ return `${res}`;
 
 console.log('sum result fn', sumFn("99888777998877889998878899987898778", "99888777998877889998878899987898778"));
 
+// 2nd task - Substraction
+
+
+const substractFn = (firstNum, secNum) => {
+  let i = firstNum.length - 1;
+  let j = secNum.length - 1;
+  let sum = 0, carryover = 0, res = ' ';
+  while (i >= 0 || j >= 0) {
+    const x = firstNum[i] || 0;
+    const y = secNum[j] || 0;
+    sum = parseInt(x) - parseInt(y) - carryover;
+    carryover = Math.trunc(sum / 10);
+    res = (sum % 10) - res;
+    i--;
+    j--;
+  }
+if (carryover) res = carryover - res;
+return `${res}`;
+}
+
+console.log('substraction result fn', substractFn("99888777998877889998878899987898778", "99888777998877889998878899987898770"));
+
+
 
 
 
