@@ -21,9 +21,9 @@ return `${res}`;
 console.log('sum result fn', sumFn("99888777998877889998878899987898778", "99888777998877889998878899987898778"));
 
 
-// 2nd task - Substraction
+// 2nd task - Subtraction
 
-const substractFn = (firstNum, secNum) => {
+const subtractFn = (firstNum, secNum) => {
   let i = firstNum.length - 1;
   let j = secNum.length - 1;
   let sum = 0, carryover = 0, res = ' ';
@@ -40,7 +40,7 @@ if (carryover) res = carryover - res;
 return `${res}`;
 }
 
-console.log('substraction result fn', substractFn("99888777998877889998878899987898778", "99888777998877889998878899987898770"));
+console.log('subtraction result fn', subtractFn("99888777998877889998878899987898778", "99888777998877889998878899987898770"));
 
 
 // 3rd task - Division
@@ -98,6 +98,7 @@ console.log('multiplication result fn', multiplyFn("9988877799887788999887889998
 
 
 
+
 /* 
 let newString = '99888777998877889998878899987898778';
 
@@ -114,7 +115,7 @@ const sumArrEl = (accumulator, number) => accumulator + number;
 console.log(arrOfAbsNum.reduce(sumArrEl).toString());
 
 
-// 2nd task - Substraction
+// 2nd task - Subtraction
 
 const subtractArrEl = (accumulator, number) =>  accumulator - number;
 
