@@ -34,8 +34,8 @@ function addValues(arg1, arg2) {
     console.log('addValues fn', res1);
   }
   catch(error) {
-  console.log(error.name);
-  console.log(error.message);
+  console.log('addValues fn', error.name);
+  console.log('addValues fn', error.message);
   }
   
       /*
@@ -113,8 +113,8 @@ try {
   console.log('invertBoolean fn', res3);
 }
 catch(error) {
-console.log(error.name);
-console.log(error.message);
+console.log('invertBoolean fn', error.name);
+console.log('invertBoolean fn', error.message);
 }
 
 
@@ -147,8 +147,8 @@ try {
   console.log('convertToNumber fn', res4);
 }
 catch(error) {
-console.log(error.name);
-console.log(error.message);
+console.log('convertToNumber fn', error.name);
+console.log('convertToNumber fn', error.message);
 }
 
 
@@ -192,8 +192,8 @@ try {
   console.log('coerceToType fn', res5);
 }
 catch(error) {
-console.log(error.name);
-console.log(error.message);
+console.log('coerceToType fn', error.name);
+console.log('coerceToType fn', error.message);
 }
 
 
@@ -270,7 +270,7 @@ function mathValues(operator, defaultValue) {
 
 const advancedAdd = mathValues((arg1, arg2) => arg1 + arg2, 0);
 
-console.log(advancedAdd(undefined, 6)); 
+console.log('advancedAdd fn',advancedAdd(undefined, 6)); 
 
 
   /*
