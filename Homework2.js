@@ -122,7 +122,7 @@ console.log(error.message);
 
 function convertToNumber(arg) {
 
-  if (typeof arg === "undefined") {  // ? // according to https://www.w3schools.com/js/js_type_conversion.asp (typeof arg === NaN || typeof arg === "") should return NaN, but Err Fn it is not working here
+  if (typeof arg === "undefined" || typeof arg === "symbol") {  // ? // according to https://www.w3schools.com/js/js_type_conversion.asp (typeof arg === NaN || typeof arg === "") should return NaN, but Err Fn it is not working here
 
     throw new TypeError("Argument is NaN");
 
@@ -145,6 +145,51 @@ let res4 = 0;
 try {
   res4 = convertToNumber(undefined);
   console.log('convertToNumber fn', res4);
+}
+catch(error) {
+console.log(error.name);
+console.log(error.message);
+}
+
+
+// 5th Fn coerceToType: Accepts two arguments: value and type. It attempts to convert the value to the specified type using type coercion. The function should return the coerced value if successful. If the coercion is not possible, it should throw an error.
+
+function coerceToType(value, type) {
+
+
+  if (type === "string") { 
+
+    return String(value);
+
+  }
+
+  if (type === "number") { 
+
+    return Number(value);
+    
+  }
+
+  if (type === "boolean") { 
+
+    return Boolean(value);
+    
+  }
+  
+  if (type === "undefined" || type === "null" || type === "symbol" || type === "object" || type === "bigint") {
+
+    throw new ReferenceError("It is impossible to convert a value to this data type");
+
+  }
+
+return value.valueOf();
+
+}
+
+
+let res5 = 0;
+try {
+  res5 = coerceToType(2, "undefined");
+  console.log('coerceToType fn', res5);
 }
 catch(error) {
 console.log(error.name);
