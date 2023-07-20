@@ -91,6 +91,33 @@ function addValues(arg1, arg2) {
   stringifyValue(null);
   */
   
+
+// 3rd Fn invertBoolean: Accepts a single boolean argument and returns its inverted value. If the argument is not a boolean, it should throw an error.
+
+function invertBoolean(arg) {
+
+  if (typeof arg !== "boolean") {
+
+    throw new TypeError("Not a boolean");
+
+  }
+
+return !arg;
+
+}
+
+
+let res3 = 0;
+try {
+  res3 = invertBoolean(true);
+  console.log('invertBoolean fn', res3);
+}
+catch(error) {
+console.log(error.name);
+console.log(error.message);
+}
+
+
   /*
   Your task is to create a JavaScript library that provides advanced data transformation functions. The library should include the following features:
   
