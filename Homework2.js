@@ -14,7 +14,7 @@ function addValues(arg1, arg2) {
   
     }
   
-  /* 
+  /* ?
   I would like to add the rule for BigInt, but unfortunately I had couldn't yet.
   
    if (arg1 === BigInt || arg2 === BigInt) {
@@ -68,7 +68,7 @@ function addValues(arg1, arg2) {
   
        return JSON.stringify(arg)};
   
-   if (typeof arg === "undefined" || typeof arg === "null") {   // incorrect result with "null" data type ?  
+   if (typeof arg === "undefined" || typeof arg === "null") {   // ? // incorrect result with "null" data type ?  
   
       return console.log("Invalid argument data type");;
   
@@ -111,6 +111,40 @@ let res3 = 0;
 try {
   res3 = invertBoolean(true);
   console.log('invertBoolean fn', res3);
+}
+catch(error) {
+console.log(error.name);
+console.log(error.message);
+}
+
+
+// 4th Fn convertToNumber: Accepts a single argument of any type and attempts to convert it to a number. For strings, use parseFloat() or parseInt() for conversion. For other types, use appropriate operations or functions to perform the conversion. If the conversion is not possible, it should throw an error.
+
+function convertToNumber(arg) {
+
+  if (typeof arg === "undefined") {  // ? // according to https://www.w3schools.com/js/js_type_conversion.asp (typeof arg === NaN || typeof arg === "") should return NaN, but Err Fn it is not working here
+
+    throw new TypeError("Argument is NaN");
+
+  }
+
+  if (typeof arg === "string" || typeof arg === "bigint") {
+    return parseInt(arg, 10);
+  }
+
+if (typeof arg === "boolean"){   // ? // according to https://www.w3schools.com/js/js_type_conversion.asp (typeof arg === "null" || typeof arg === "" || typeof arg === []) should return 0, but in console it is not right
+return Number(arg);
+}
+
+return arg;
+
+}
+
+
+let res4 = 0;
+try {
+  res4 = convertToNumber(undefined);
+  console.log('convertToNumber fn', res4);
 }
 catch(error) {
 console.log(error.name);
