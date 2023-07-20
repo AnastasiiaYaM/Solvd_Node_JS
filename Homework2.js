@@ -197,6 +197,82 @@ console.log(error.message);
 }
 
 
+// 6th advancedAdd Fn - additional functions of your choice that demonstrate advanced type conversion scenarios
+
+function baseToNumber(value) {
+
+  if (typeof value === 'number') {
+
+    return value
+
+  }
+
+  return +value
+}
+
+function baseToString(value) {
+
+  if (typeof value === 'string') {
+
+    return value;
+
+  }
+
+  if (Array.isArray(value)) {
+ 
+    return `${value.map(baseToString)}`;
+
+  }
+
+  const result = `${value}`;
+  return (result === '0' && (1 / value) === -INFINITY) ? '-0' : result;
+}
+
+function mathValues(operator, defaultValue) {
+
+  return (value, other) => {
+
+    if (value === undefined && other === undefined) {
+
+      return defaultValue;
+
+    }
+
+    if (value !== undefined && other === undefined) {
+
+      return value;
+    }
+
+    if (other !== undefined && value === undefined) {
+
+      return other;
+
+    }
+
+    if (typeof value === 'string' || typeof other === 'string') {
+
+      value = baseToString(value);
+      other = baseToString(other);
+
+    }
+
+    else {
+
+      value = baseToNumber(value);
+      other = baseToNumber(other);
+
+    }
+
+    return operator(value, other)
+  
+  }
+}
+
+const advancedAdd = mathValues((arg1, arg2) => arg1 + arg2, 0);
+
+console.log(advancedAdd(undefined, 6)); 
+
+
   /*
   Your task is to create a JavaScript library that provides advanced data transformation functions. The library should include the following features:
   
