@@ -20,14 +20,11 @@ function addValues(arg1, arg2) {
   
     } 
 
-    if (arg1 === true && arg2 === true) {
-      return true
-    }
+    if (typeof arg1 === "boolean" && typeof arg2 === "boolean") {
 
-    if (arg1 === false && arg2 === false) {
-      return false
+      return arg1 + arg2 === 2;
     }
-
+   
   return arg1 + arg2;
   
   }
@@ -35,7 +32,7 @@ function addValues(arg1, arg2) {
   
   let res1 = 0;
   try {
-    res1 = addValues(true, true);
+    res1 = addValues(true, false);
     console.log('addValues fn', res1);
   }
   catch(error) {
@@ -153,41 +150,27 @@ console.log('convertToNumber fn', error.message);
 
 // 5th Fn coerceToType: Accepts two arguments: value and type. It attempts to convert the value to the specified type using type coercion. The function should return the coerced value if successful. If the coercion is not possible, it should throw an error.
 
+
 function coerceToType(value, type) {
 
+  const allowedType = ["string", "number", "boolean"];
 
-  if (type === "string") { 
+  if (allowedType.includes(type)) { 
 
-    return String(value);
+    return value.valueOf();;
 
   }
 
-  if (type === "number") { 
-
-    return Number(value);
-    
-  }
-
-  if (type === "boolean") { 
-
-    return Boolean(value);
-    
-  }
-  
-  if (type === "undefined" || type === "symbol" || type === "object" || type === "bigint") {
+  else if (type === "undefined" || type === "symbol" || type === "object" || type === "bigint") {
 
     throw new ReferenceError("It is impossible to convert a value to this data type");
 
   }
-
-return value.valueOf();
-
 }
-
 
 let res5 = 0;
 try {
-  res5 = coerceToType(2, "undefined");
+  res5 = coerceToType(2, "string");
   console.log('coerceToType fn', res5);
 }
 catch(error) {
