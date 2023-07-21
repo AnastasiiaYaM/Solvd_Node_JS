@@ -2,13 +2,13 @@
 
 function addValues(arg1, arg2) {
 
-    if (typeof arg1 === "undefined" || typeof arg1 === "null" || typeof arg1 === "symbol" || typeof arg1 === "object") {
+    if (typeof arg1 === "undefined" || typeof arg1 === "symbol" || typeof arg1 === "object") {
   
       throw new TypeError("Invalid 1st argument data type");
   
     }
   
-    if (typeof arg2 === "undefined" || typeof arg2 === "null" || typeof arg2 === "symbol" || typeof arg2 === "object") {
+    if (typeof arg2 === "undefined" || typeof arg2 === "symbol" || typeof arg2 === "object") {
   
       throw new TypeError("Invalid 2nd argument data type");
   
@@ -20,6 +20,14 @@ function addValues(arg1, arg2) {
   
     } 
 
+    if (arg1 === true && arg2 === true) {
+      return true
+    }
+
+    if (arg1 === false && arg2 === false) {
+      return false
+    }
+
   return arg1 + arg2;
   
   }
@@ -27,7 +35,7 @@ function addValues(arg1, arg2) {
   
   let res1 = 0;
   try {
-    res1 = addValues(2, 3);
+    res1 = addValues(true, true);
     console.log('addValues fn', res1);
   }
   catch(error) {
@@ -61,7 +69,7 @@ function addValues(arg1, arg2) {
   
       return arg.toString();}
   
-    if (typeof arg === "object" || typeof arg === "array" || typeof arg === "undefined" || typeof arg === "null") {
+    if (typeof arg === "object" || typeof arg === "array" || typeof arg === "undefined") {
   
        return JSON.stringify(arg)};
   
@@ -69,7 +77,7 @@ function addValues(arg1, arg2) {
   
     }
   
-    res2 = stringifyValue(2);
+    res2 = stringifyValue(true);
     console.log('stringifyValue fn', res2);
   
   /*
@@ -166,7 +174,7 @@ function coerceToType(value, type) {
     
   }
   
-  if (type === "undefined" || type === "null" || type === "symbol" || type === "object" || type === "bigint") {
+  if (type === "undefined" || type === "symbol" || type === "object" || type === "bigint") {
 
     throw new ReferenceError("It is impossible to convert a value to this data type");
 
