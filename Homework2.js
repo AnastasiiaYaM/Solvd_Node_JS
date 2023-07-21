@@ -13,16 +13,13 @@ function addValues(arg1, arg2) {
       throw new TypeError("Invalid 2nd argument data type");
   
     }
+
+    if (typeof arg1 === "bigint" || typeof arg2 === "bigint") {
   
-  /* ?
-  I would like to add the rule for BigInt, but unfortunately I had couldn't yet.
+      throw new TypeError("This Fn doesn't work with BigInt");
   
-   if (arg1 === BigInt || arg2 === BigInt) {
-  
-      return arg1.toString() + arg2.toString();
-  } 
-  */
-  
+    } 
+
   return arg1 + arg2;
   
   }
@@ -64,15 +61,9 @@ function addValues(arg1, arg2) {
   
       return arg.toString();}
   
-    if (typeof arg === "object" || typeof arg === "array") {
+    if (typeof arg === "object" || typeof arg === "array" || typeof arg === "undefined" || typeof arg === "null") {
   
        return JSON.stringify(arg)};
-  
-   if (typeof arg === "undefined" || typeof arg === "null") {   // ? // incorrect result with "null" data type ?  
-  
-      return console.log("Invalid argument data type");;
-  
-    }
   
     return arg;
   
