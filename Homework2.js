@@ -36,22 +36,13 @@ return arg1 + arg2;
   // 2nd Fn stringifyValue: Accepts a single argument of any type and converts it to a string representation. For objects and arrays, use JSON.stringify() for serialization. For other types, use the appropriate built-in methods or operations to convert them to strings.
   
   function stringifyValue(arg) {
-  
-    const toStringArg = ["number", "boolean", "symbol", "bigint"];
-    const stringifyArg = ["object", "array", "undefined"];
 
-    if (typeof arg === toStringArg.includes(arg)) {
-  
-      return arg.toString();}
-  
-    if (typeof arg === stringifyArg.includes(arg)) {
-  
-       return JSON.stringify(arg)};
-  
-  return arg;
-  
+    if ((typeof arg == 'object' && arg !== null) || Array.isArray(arg)) {
+      return JSON.stringify(arg);
+    }
+    return String(arg);
   }
-  
+
     res2 = stringifyValue(true);
     console.log('stringifyValue fn', res2);
   
@@ -79,7 +70,6 @@ function invertBoolean(arg) {
 return !arg;
 
 }
-
 
 let res3 = 0;
 try {
@@ -114,7 +104,6 @@ return arg;
 
 }
 
-
 let res4 = 0;
 try {
   res4 = convertToNumber(undefined);
@@ -127,17 +116,6 @@ console.log('convertToNumber fn', error.message);
 
 
 // 5th Fn coerceToType: Accepts two arguments: value and type. It attempts to convert the value to the specified type using type coercion. The function should return the coerced value if successful. If the coercion is not possible, it should throw an error.
-
-
-/*
-const allowedType = ["string", "number", "boolean"];
-
-if (allowedType.includes(type)) { 
-
-  return value.valueOf();;
-
-}
-*/
 
 function coerceToType(value, type) {
 
