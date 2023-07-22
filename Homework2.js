@@ -2,7 +2,9 @@
 
 function addValues(arg1, arg2) {
 
-  if (typeof arg1 === "string" || "number" && typeof arg2 === "string" || "number") {
+  const allowedTypes = ["string", "number"];
+
+  if( allowedTypes.includes(typeof arg1) && allowedTypes.includes(typeof arg2)) {
 
     return arg1 + arg2;
 
@@ -49,16 +51,7 @@ throw new TypeError("Invalid data type");
     res2 = stringifyValue(true);
     console.log('stringifyValue fn', res2);
   
-  /*
-  stringifyValue(2);
-  stringifyValue(true);
-  stringifyValue(123n);
-  stringifyValue([1,2,3]);
-  stringifyValue({name: 'Olena'});
-  stringifyValue(undefined);
-  stringifyValue(null);
-  */
-  
+
 
 // 3rd Fn invertBoolean: Accepts a single boolean argument and returns its inverted value. If the argument is not a boolean, it should throw an error.
 
