@@ -2,37 +2,28 @@
 
 function addValues(arg1, arg2) {
 
-    if (typeof arg1 === "undefined" || typeof arg1 === "symbol" || typeof arg1 === "object") {
-  
-      throw new TypeError("Invalid 1st argument data type");
-  
-    }
-  
-    if (typeof arg2 === "undefined" || typeof arg2 === "symbol" || typeof arg2 === "object") {
-  
-      throw new TypeError("Invalid 2nd argument data type");
-  
-    }
+    const disAllowedTypeArg1 = ["undefined", "symbol", "object", "bigint"];
+    const disAllowedTypeArg2 = ["undefined", "symbol", "object", "bigint"];
 
-    if (typeof arg1 === "bigint" || typeof arg2 === "bigint") {
-  
-      throw new TypeError("This Fn doesn't work with BigInt");
-  
-    } 
+    if (disAllowedTypeArg1.includes(arg1) || disAllowedTypeArg2.includes(arg2)) { 
+
+    throw new TypeError("Invalid data type");
+
+    }
 
     if (typeof arg1 === "boolean" && typeof arg2 === "boolean") {
 
-      return arg1 + arg2 === 2;
+    return arg1 + arg2 === 2;
+
     }
    
-  return arg1 + arg2;
+return arg1 + arg2;
   
-  }
-  
+}
   
   let res1 = 0;
   try {
-    res1 = addValues(true, false);
+    res1 = addValues("undefined", false);
     console.log('addValues fn', res1);
   }
   catch(error) {
@@ -40,39 +31,26 @@ function addValues(arg1, arg2) {
   console.log('addValues fn', error.message);
   }
   
-      /*
-      addValues(2, 3);
-      addValues("2", "3");
-      addValues(2, "3");
-      addValues("2", 3);
-      addValues(true, 3);
-      addValues(2, true);
-      addValues(false, true);
-      addValues(null, 3);
-      addValues(undefined, 3);
-      addValues(Symbol, 3);
-      addValues(Object, 3);
-      addValues(2n, 3);
-      addValues(2, BigInt);
-      */
-  
+
   
   // 2nd Fn stringifyValue: Accepts a single argument of any type and converts it to a string representation. For objects and arrays, use JSON.stringify() for serialization. For other types, use the appropriate built-in methods or operations to convert them to strings.
   
   function stringifyValue(arg) {
   
-    
-    if (typeof arg === "number" || typeof arg === "boolean" || typeof arg === "symbol" || typeof arg === "bigint") {
+    const toStringArg = ["number", "boolean", "symbol", "bigint"];
+    const stringifyArg = ["object", "array", "undefined"];
+
+    if (typeof arg === toStringArg.includes(arg)) {
   
       return arg.toString();}
   
-    if (typeof arg === "object" || typeof arg === "array" || typeof arg === "undefined") {
+    if (typeof arg === stringifyArg.includes(arg)) {
   
        return JSON.stringify(arg)};
   
-    return arg;
+  return arg;
   
-    }
+  }
   
     res2 = stringifyValue(true);
     console.log('stringifyValue fn', res2);
@@ -151,26 +129,43 @@ console.log('convertToNumber fn', error.message);
 // 5th Fn coerceToType: Accepts two arguments: value and type. It attempts to convert the value to the specified type using type coercion. The function should return the coerced value if successful. If the coercion is not possible, it should throw an error.
 
 
+/*
+const allowedType = ["string", "number", "boolean"];
+
+if (allowedType.includes(type)) { 
+
+  return value.valueOf();;
+
+}
+*/
+
 function coerceToType(value, type) {
 
-  const allowedType = ["string", "number", "boolean"];
+  if (type === "string") { 
 
-  if (allowedType.includes(type)) { 
-
-    return value.valueOf();;
+    return String(value);
 
   }
 
-  else if (type === "undefined" || type === "symbol" || type === "object" || type === "bigint") {
+  if (type === "number") { 
+
+    return Number(value);
+
+  }
+
+  if (type === "boolean") { 
+
+    return Boolean(value);
+
+  }
 
     throw new ReferenceError("It is impossible to convert a value to this data type");
 
-  }
 }
 
 let res5 = 0;
 try {
-  res5 = coerceToType(2, "string");
+  res5 = coerceToType(2, "undefined");
   console.log('coerceToType fn', res5);
 }
 catch(error) {
