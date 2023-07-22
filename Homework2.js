@@ -2,12 +2,9 @@
 
 function addValues(arg1, arg2) {
 
-    const disAllowedTypeArg1 = ["undefined", "symbol", "object", "bigint"];
-    const disAllowedTypeArg2 = ["undefined", "symbol", "object", "bigint"];
+  if (typeof arg1 === "string" || "number" && typeof arg2 === "string" || "number") {
 
-    if (disAllowedTypeArg1.includes(arg1) || disAllowedTypeArg2.includes(arg2)) { 
-
-    throw new TypeError("Invalid data type");
+    return arg1 + arg2;
 
     }
 
@@ -17,13 +14,19 @@ function addValues(arg1, arg2) {
 
     }
    
-return arg1 + arg2;
+    if (typeof arg1 === "bigint" && typeof arg2 === "bigint") {
+
+      return arg1 + arg2;
   
+      }
+
+throw new TypeError("Invalid data type");
+
 }
   
   let res1 = 0;
   try {
-    res1 = addValues("undefined", false);
+    res1 = addValues("3", 3);
     console.log('addValues fn', res1);
   }
   catch(error) {
