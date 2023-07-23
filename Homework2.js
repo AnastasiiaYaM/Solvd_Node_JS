@@ -4,20 +4,19 @@ function addValues(arg1, arg2) {
 
   const allowedTypes = ["string", "number"];
 
-  if( allowedTypes.includes(typeof arg1) && allowedTypes.includes(typeof arg2)) {
+  if ( allowedTypes.includes(typeof arg1) && allowedTypes.includes(typeof arg2)) {
 
     return arg1 + arg2;
 
-    }
-
-    if (typeof arg1 === "boolean" && typeof arg2 === "boolean") {
+  } else if (typeof arg1 === "boolean" && typeof arg2 === "boolean") {
 
     return arg1 + arg2 === 2;
 
-    }
+  } else {
 
-throw new TypeError("Invalid data type");
+    throw new TypeError("Invalid data type");
 
+  }
 }
   
   let res1 = 0;
@@ -37,9 +36,14 @@ throw new TypeError("Invalid data type");
   function stringifyValue(arg) {
 
     if ((typeof arg == 'object' && arg !== null) || Array.isArray(arg)) {
-      return JSON.stringify(arg);
-    }
+
+    return JSON.stringify(arg);
+
+    } else {
+
     return String(arg);
+
+    } 
   }
 
     res2 = stringifyValue(true);
@@ -55,10 +59,11 @@ function invertBoolean(arg) {
 
     throw new TypeError("Not a boolean");
 
+  } else {
+
+  return !arg;
+
   }
-
-return !arg;
-
 }
 
 let res3 = 0;
@@ -80,18 +85,19 @@ function convertToNumber(value) {
 
     throw new TypeError("Argument is NaN");
 
-  }
+  } else if (typeof value === "string" || typeof value === "bigint") {
 
-  if (typeof value === "string" || typeof value === "bigint") {
     return parseInt(value, 10);
+
+  } else if (typeof value === "boolean") {   
+
+    return Number(value);
+
+  } else {
+
+    return value;
+
   }
-
-if (typeof value === "boolean"){   
-return Number(value);
-}
-
-return value;
-
 }
 
 let res4 = 0;
@@ -121,10 +127,11 @@ function coerceToType(value, type) {
 
     return Boolean(value);
 
-  }
+  } else {
 
     throw new ReferenceError("It is impossible to convert a value to this data type");
 
+  }
 }
 
 let res5 = 0;
@@ -146,27 +153,29 @@ function baseToNumber(value) {
 
     return value
 
-  }
+  } else {
 
-  return +value
+    return +value
+
+  }
 }
 
 function baseToString(value) {
 
   if (typeof value === 'string') {
 
-    return value;
+  return value;
 
-  }
-
-  if (Array.isArray(value)) {
+  } else if (Array.isArray(value)) {
  
     return `${value.map(baseToString)}`;
 
-  }
+  } else {
 
-  const result = `${value}`;
-  return (result === '0' && (1 / value) === -INFINITY) ? '-0' : result;
+    const result = `${value}`;
+    return (result === '0' && (1 / value) === -INFINITY) ? '-0' : result;
+
+  }
 }
 
 function mathValues(operator, defaultValue) {
@@ -177,27 +186,20 @@ function mathValues(operator, defaultValue) {
 
       return defaultValue;
 
-    }
-
-    if (value !== undefined && other === undefined) {
+    } else if (value !== undefined && other === undefined) {
 
       return value;
-    }
 
-    if (other !== undefined && value === undefined) {
+    } else if (other !== undefined && value === undefined) {
 
       return other;
 
-    }
-
-    if (typeof value === 'string' || typeof other === 'string') {
+    } else if (typeof value === 'string' || typeof other === 'string') {
 
       value = baseToString(value);
       other = baseToString(other);
 
-    }
-
-    else {
+    } else {
 
       value = baseToNumber(value);
       other = baseToNumber(other);
