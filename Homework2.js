@@ -15,12 +15,6 @@ function addValues(arg1, arg2) {
     return arg1 + arg2 === 2;
 
     }
-   
-    if (typeof arg1 === "bigint" && typeof arg2 === "bigint") {
-
-      return arg1 + arg2;
-  
-      }
 
 throw new TypeError("Invalid data type");
 
@@ -28,7 +22,7 @@ throw new TypeError("Invalid data type");
   
   let res1 = 0;
   try {
-    res1 = addValues("3", 3);
+    res1 = addValues(3, "33");
     console.log('addValues fn', res1);
   }
   catch(error) {
@@ -80,23 +74,23 @@ console.log('invertBoolean fn', error.message);
 
 // 4th Fn convertToNumber: Accepts a single argument of any type and attempts to convert it to a number. For strings, use parseFloat() or parseInt() for conversion. For other types, use appropriate operations or functions to perform the conversion. If the conversion is not possible, it should throw an error.
 
-function convertToNumber(arg) {
+function convertToNumber(value) {
 
-  if (typeof arg === "undefined" || typeof arg === "symbol") {  // ? // according to https://www.w3schools.com/js/js_type_conversion.asp (typeof arg === NaN || typeof arg === "") should return NaN, but Err Fn it is not working here
+  if (typeof value === "undefined" || typeof value === "symbol") { 
 
     throw new TypeError("Argument is NaN");
 
   }
 
-  if (typeof arg === "string" || typeof arg === "bigint") {
-    return parseInt(arg, 10);
+  if (typeof value === "string" || typeof value === "bigint") {
+    return parseInt(value, 10);
   }
 
-if (typeof arg === "boolean"){   // ? // according to https://www.w3schools.com/js/js_type_conversion.asp (typeof arg === "null" || typeof arg === "" || typeof arg === []) should return 0, but in console it is not right
-return Number(arg);
+if (typeof value === "boolean"){   
+return Number(value);
 }
 
-return arg;
+return value;
 
 }
 
@@ -119,15 +113,11 @@ function coerceToType(value, type) {
 
     return String(value);
 
-  }
+  } else if (type === "number") { 
 
-  if (type === "number") { 
+    return convertToNumber(value);
 
-    return Number(value);
-
-  }
-
-  if (type === "boolean") { 
+  } else if (type === "boolean") { 
 
     return Boolean(value);
 
@@ -139,7 +129,7 @@ function coerceToType(value, type) {
 
 let res5 = 0;
 try {
-  res5 = coerceToType(2, "undefined");
+  res5 = coerceToType("2", "number");
   console.log('coerceToType fn', res5);
 }
 catch(error) {
