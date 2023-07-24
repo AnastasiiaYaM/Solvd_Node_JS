@@ -35,7 +35,7 @@ function addValues(arg1, arg2) {
   
   function stringifyValue(arg) {
 
-    if ((typeof arg == 'object' && arg !== null) || Array.isArray(arg)) {
+    if ((typeof arg == "object" && arg !== null) || Array.isArray(arg)) {
 
     return JSON.stringify(arg);
 
@@ -81,23 +81,21 @@ console.log('invertBoolean fn', error.message);
 
 function convertToNumber(value) {
 
-  if (typeof value === "undefined" || typeof value === "symbol") { 
+  const notAllowedTypes = ["object", "undefined", "symbol"];
 
-    throw new TypeError("Argument is NaN");
+  if (notAllowedTypes.includes(typeof value) && value !== null) { 
 
-  } else if (typeof value === "string" || typeof value === "bigint") {
+    throw new TypeError("Wrong Value Was Passed to convertToNumber function");
 
-    return parseInt(value, 10);
+  } 
+  
+  if (typeof value === "string") {
 
-  } else if (typeof value === "boolean") {   
+    return parseInt(value);
 
-    return Number(value);
+  }   
 
-  } else {
-
-    return value;
-
-  }
+  return Number(value);
 }
 
 let res4 = 0;
@@ -117,7 +115,7 @@ function coerceToType(value, type) {
 
   if (type === "string") { 
 
-    return String(value);
+    return stringifyValue(value);
 
   } else if (type === "number") { 
 
