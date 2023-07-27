@@ -5,11 +5,11 @@
 2. Create a pure function called `calculateTotalPrice` that takes an array of products as an argument. The function should return the total price of all products, without modifying the original array or its items.
 */
 
+//1.1
+
 let products = [5, 8, 12, 16, 22, 46, 48];
 let discountedProducts = [];
 let discount = 10;
-
-
 
 function calculateDiscountedPrice (products, discount) {
 
@@ -21,6 +21,7 @@ return discountedProducts;
 
 console.log('discounted prices', calculateDiscountedPrice(products, discount));
 
+//1.2
 
 arr = products;
 
@@ -53,7 +54,47 @@ Task 2: Function Composition and Point-Free Style
 
 */
 
+//2.1
 
+const person = {
+    firstName: 'Anastasiia',
+    lastName: 'Melenevych'
+  };
+  
+  function getFullName(obj){
+    return obj.firstName + ' ' + obj.lastName;
+  }
+  
+console.log('Full name is ', getFullName(person));
+
+//2.2
+
+let strText = 'an apple a day keeps the doctor away';
+
+const filterUniqueWords = (strText) => strText.split(' ').sort();
+
+console.log('an array of unique words, sorted in alphabetical order', filterUniqueWords(strText)); 
+
+ //2.3
+
+let students = [
+    {
+        name: 'Olena',
+        grades: 100,
+    },
+    {
+        name: 'Boris',
+        grades: 85,
+    },
+    {
+        name: 'Petr',
+        grades: 70,
+    }
+]
+
+const getAverageGrade = (students) => students.map(student => student.grades).reduce((prev, next) => prev + next);
+
+console.log('the average grade of all students', getAverageGrade(students));
 
 /*
 Task 3: Closures and Higher-Order Functions
