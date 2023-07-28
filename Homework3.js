@@ -193,3 +193,64 @@ Task 5: Lazy Evaluation and Generators
 
 2. Create a lazy generator function called `fibonacciGenerator` that generates Fibonacci numbers one at a time using lazy evaluation.
 */
+
+// 5.1
+
+let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+function lazyMap (array) {
+
+let arrayMapResults = [];
+
+    for (let i = 0, el; i < array.length; i++) {
+
+        el = array[i];
+
+        if (el % 2) {
+
+        arrayMapResults.push(`odd: ${el}`);
+
+        }
+    }
+
+return arrayMapResults;
+
+}    
+
+console.log(lazyMap(array));
+
+// 5.2
+
+const fibonacciGenerator = (n) => {
+
+    const result = [];
+    let start = 0;
+    let next = 1;
+
+    switch (n) {
+        case 0:
+            break;
+        case 1:
+            result.push(start);
+            break;
+        case 2:
+            result.push(start);
+            result.push(next);
+            break;        
+        default:
+            result.push(start);
+            result.push(next);
+      for (let i = 2; i < n; i++) {
+        const val = start + next;
+        start = next;
+        next = val;
+        result.push(val);
+      }           
+    }
+    return result;
+}
+
+console.log(fibonacciGenerator(0));
+console.log(fibonacciGenerator(1));
+console.log(fibonacciGenerator(2));
+console.log(fibonacciGenerator(10));
