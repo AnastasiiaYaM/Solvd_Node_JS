@@ -142,9 +142,6 @@ function repeatFunction (fn, num) {
 
 repeatFunction (console.log, 5); 
 
-
-
-
 /*
 Task 4: Recursion and Tail Call Optimization
 
@@ -154,6 +151,39 @@ Task 4: Recursion and Tail Call Optimization
 
 */
 
+//4.1
+
+function calculateFactorial (num) {
+
+    return recursiveFactorial (num, 1); 
+
+  }
+  
+  function recursiveFactorial (num, accumulator) {
+
+    if (num <= 0) return accumulator;
+  
+    return recursiveFactorial (num-1, num*accumulator);
+  }
+
+let num = 4;
+
+console.log(`factorial of ${num} is`, calculateFactorial (num));
+
+// 4.2
+
+function power (base, exponent) {
+
+    if (exponent == 0) return 1;
+
+    else return base * power(base, exponent - 1);
+
+}
+
+let base = 3;
+let exponent = 5;
+
+console.log(`${base} in ${exponent} degree is equal to`, power (base, exponent));
 
 
 /*
