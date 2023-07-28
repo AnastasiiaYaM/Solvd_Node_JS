@@ -25,7 +25,7 @@ console.log('discounted prices', calculateDiscountedPrice(products, discount));
 
 arr = products;
 
-function calculateTotalPrice(arr){
+function calculateTotalPrice (arr){
 
     let totalPrice = 0;
 
@@ -61,7 +61,8 @@ const person = {
     lastName: 'Melenevych'
   };
   
-  function getFullName(obj){
+  function getFullName (obj){
+
     return obj.firstName + ' ' + obj.lastName;
   }
   
@@ -102,8 +103,45 @@ Task 3: Closures and Higher-Order Functions
 1. Create a function called `createCounter` that returns a closure. The closure should be a counter function that increments the count on each call and returns the updated count. Each closure should have its own independent count.
 
 2. Implement a higher-order function called `repeatFunction` that takes a function and a number as arguments. The function should return a new function that invokes the original function multiple times based on the provided number. If the number is negative, the new function should invoke the original function indefinitely until stopped.
-
 */
+
+//3.1
+
+function createCounter () {
+
+let count = 0;
+
+    return () => {
+
+    return count++;
+
+    }
+
+}
+
+ const counter = createCounter ();
+
+ console.log('start', counter());
+ console.log('1st call', counter());
+ console.log('2nd call', counter());
+ console.log('3rd call', counter());
+
+// 3.2
+
+function repeatFunction (fn, num) {
+
+    for (let i = 1; i <= num; i++) {
+
+        fn (i);
+    } 
+    for (let i = 1; num < 0; i++) {  // infinite loop
+
+        fn (i);
+    } 
+}
+
+repeatFunction (console.log, 5); 
+
 
 
 
