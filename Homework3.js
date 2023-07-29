@@ -7,40 +7,37 @@
 
 //1.1
 
-let products = [5, 8, 12, 16, 22, 46, 48];
+const products = [
+    {name: 'potato', price: 100},
+    {name: 'tomato', price: 80},
+    {name: 'onion', price: 60}
+];
 let discountedProducts = [];
 let discount = 10;
 
-function calculateDiscountedPrice (products, discount) {
+function calculateDiscountedPrice (obj, prop, discount) {
 
-discountedProducts = products.map(product =>  product - (product * discount / 100));
-
-return discountedProducts;
-
+        discountedProducts = obj.map(value =>  value[prop] - (value[prop] * discount / 100));
+    
+        return discountedProducts;
 }
 
-console.log('discounted prices', calculateDiscountedPrice(products, discount));
+console.log('discounted prices', calculateDiscountedPrice(products, 'price', discount));
 
 //1.2
 
-arr = products;
+function calculateTotalPrice (obj, prop){
 
-function calculateTotalPrice (arr){
+    const totalPrice = obj.reduce(function(previousValue, currentValue) {
+        return previousValue + currentValue[prop];
+    }, 0);
 
-    let totalPrice = 0;
-
-    for (i = 0; i < arr.length; i++){
-        totalPrice += arr[i]
-     }
-     return totalPrice
+    console.log('Total prise is', totalPrice);
 
   }
 
-console.log('The total price of all products is ', calculateTotalPrice(products));
+calculateTotalPrice(products, 'price');
 
-arr = discountedProducts;
-
-console.log('The total price of all discounted products is ', calculateTotalPrice(discountedProducts));
 
 /*
 
@@ -70,9 +67,9 @@ console.log('Full name is ', getFullName(person));
 
 //2.2
 
-let strText = 'an apple a day keeps the doctor away';
+let strText = 'hello Hello Alan ZERO zero wake Wake ALPHABET alpha ? ? ?';
 
-const filterUniqueWords = (strText) => strText.split(' ').sort();
+const filterUniqueWords = (strText) => strText.split(' ').sort((a, b) => a.localeCompare(b));
 
 console.log('an array of unique words, sorted in alphabetical order', filterUniqueWords(strText)); 
 
