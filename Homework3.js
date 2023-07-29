@@ -90,7 +90,7 @@ let students = [
     }
 ]
 
-const getAverageGrade = (students) => students.map(student => student.grades).reduce((prev, next) => prev + next);
+const getAverageGrade = (students) => students.map(student => student.grades).reduce((prev, next) => prev + next, 0) / students.length;
 
 console.log('the average grade of all students', getAverageGrade(students));
 
