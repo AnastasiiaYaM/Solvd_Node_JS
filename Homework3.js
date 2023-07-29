@@ -75,6 +75,7 @@ console.log('an array of unique words, sorted in alphabetical order', filterUniq
 
  //2.3
 
+/*
 let students = [
     {
         name: 'Olena',
@@ -93,6 +94,37 @@ let students = [
 const getAverageGrade = (students) => students.map(student => student.grades).reduce((prev, next) => prev + next, 0) / students.length;
 
 console.log('the average grade of all students', getAverageGrade(students));
+*/
+
+let students = [
+    {
+        name: 'Olena',
+        grades: [ 100, 80, 75 ],
+    },
+    {
+        name: 'Boris',
+        grades: [ 85, 92, 94 ],
+    },
+    {
+        name: 'Petr',
+        grades: [ 70, 84, 78 ],
+    }
+    ]
+
+const iterator = students.values();
+
+for (const value of iterator) {
+      console.log(value);
+    }
+
+const getAverageGrade1 = (students) => students.map(student => student.grades[0]).reduce((prev, next) => prev + next, 0) / students.length;
+const getAverageGrade2 = (students) => students.map(student => student.grades[1]).reduce((prev, next) => prev + next, 0) / students.length;
+const getAverageGrade3 = (students) => students.map(student => student.grades[2]).reduce((prev, next) => prev + next, 0) / students.length;
+
+
+console.log('1st class average grade of all students', getAverageGrade1(students));
+console.log('2nd class average grade of all students', getAverageGrade2(students));
+console.log('3rd class average grade of all students', getAverageGrade3(students));
 
 /*
 Task 3: Closures and Higher-Order Functions
