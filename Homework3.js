@@ -148,12 +148,15 @@ let count = 0;
 
 }
 
- const counter = createCounter ();
+ const counter1 = createCounter ();
+ const counter2 = createCounter ();
 
- console.log('start', counter());
- console.log('1st call', counter());
- console.log('2nd call', counter());
- console.log('3rd call', counter());
+ console.log('counter 1', counter1());
+ console.log('counter 1', counter1());
+ console.log('counter 2', counter2());
+ console.log('counter 2', counter2());
+ console.log('counter 2', counter2());
+ console.log('counter 1', counter1());
 
 // 3.2
 
