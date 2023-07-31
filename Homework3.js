@@ -67,15 +67,21 @@ console.log('Full name is ', getFullName(person));
 
 //2.2
 
-let strText = 'hello Hello Alan ZERO zero wake Wake ALPHABET alpha ? ? ?';
+let strText = 'hello Hello Alan ZERO zero wake, Wake ALPHABET alpha . ? ? ?';
 
-const filterUniqueWords = (strText) => strText.toLowerCase().replace(/[.,!?]/g).split(' ').sort((a, b) => a.localeCompare(b)).filter( (item, pos, arr) => !pos || item !== arr[pos - 1]);
+const filterUniqueWords = (strText) => {
+
+    if (typeof strText === 'string') {
+
+        const arrayFromStrText = strText.toLowerCase().split(/\W+/);
+        const filterEmptyWordsAndSort = arrayFromStrText.filter(word => word.length > 0).sort();
+        return Array.from(new Set(filterEmptyWordsAndSort));
+    }
+    throw new Error(`The ${strText} should be a string`)
+}
 
 console.log('an array of unique words, sorted in alphabetical order', filterUniqueWords(strText)); 
 
-// const filterUniqueWords = (strText) => strText.toLowerCase().replace(/[/[.,!?]/g, [0-9]/g,""]/g).split(' ').sort((a, b) => a.localeCompare(b)).filter( (item, pos, arr) => !pos || item !== arr[pos - 1]);
-
- //2.3
 
 /*
 let students = [
