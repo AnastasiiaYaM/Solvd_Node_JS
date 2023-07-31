@@ -22,9 +22,10 @@ function calculateDiscountedPrice (obj, prop, discount) {
         discountedProducts = obj.map(value =>  value[prop] - (value[prop] * discount / 100));
     
         return discountedProducts;
-    }
+    } else {
 
-    throw new Error(`Wrong input data types`);
+        throw new Error(`Wrong input data type`);
+    }
 }
 
 console.log('discounted prices', calculateDiscountedPrice(products, 'price', discount));
@@ -33,16 +34,20 @@ console.log('discounted prices', calculateDiscountedPrice(products, 'price', dis
 
 function calculateTotalPrice (obj, prop){
 
-    const totalPrice = obj.reduce(function(previousValue, currentValue) {
-        return previousValue + currentValue[prop];
-    }, 0);
+    if (Array.isArray(products) && products.every(product => typeof product.price === 'number' && typeof product.name === 'string')) {
 
-    console.log('Total prise is', totalPrice);
+        const totalPrice = obj.reduce(function(previousValue, currentValue) {
 
+            return previousValue + currentValue[prop];
+        }, 0);
+
+        console.log('Total prise is', totalPrice);
+    } else {
+        throw new Error(`Wrong input data type`);
+    }
   }
 
 calculateTotalPrice(products, 'price');
-
 
 /*
 
@@ -88,26 +93,7 @@ const filterUniqueWords = (strText) => {
 console.log('an array of unique words, sorted in alphabetical order', filterUniqueWords(strText)); 
 
 
-/*
-let students = [
-    {
-        name: 'Olena',
-        grades: 100,
-    },
-    {
-        name: 'Boris',
-        grades: 85,
-    },
-    {
-        name: 'Petr',
-        grades: 70,
-    }
-]
-
-const getAverageGrade = (students) => students.map(student => student.grades).reduce((prev, next) => prev + next, 0) / students.length;
-
-console.log('the average grade of all students', getAverageGrade(students));
-*/
+// 2.3
 
 let students = [
     {
@@ -124,17 +110,28 @@ let students = [
     }
     ]
 
-const iterator = students.values();
+const getAverageGrade = (students) => students.map(student => student.grades.reduce((acc, cur) => acc + cur, 0) / student.grades.length).reduce((prev, next) => prev + next, 0) / students.length;
+             
+console.log('average grade of all students', getAverageGrade(students));
 
-for (const value of iterator) {
-      console.log(value);
-    }
+/*
+const getAverageGrade = (students) => {
 
-const getAverageGrade = (students) => students.map(student => student.grades[i]).reduce((prev, next) => prev + next, 0) / students.length;
+    if (Array.isArray(students) && students.every(student => typeof student.grades === Array.isArray(student.grades) && student.grades.every(student.grade === 'number')  && typeof student.name === 'string')) {        
+        
+        const averageGrade = (students) => students.map(student => student.grades.reduce((acc, cur) => acc + cur, 0) / student.grades.length).reduce((prev, next) => prev + next, 0) / students.length;
+             
+        return averageGrade;
 
-console.log('1st class average grade of all students', getAverageGrade(students));
+        } else {
 
-
+            throw new Error(`Wrong input data type`);
+        }
+    }   
+    
+console.log('average grade of all students', getAverageGrade(students));
+*/
+    
 /*
 Task 3: Closures and Higher-Order Functions
 
