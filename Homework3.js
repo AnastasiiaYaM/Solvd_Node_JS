@@ -117,7 +117,7 @@ console.log('average grade of all students', getAverageGrade(students));
 /*
 const getAverageGrade = (students) => {
 
-    if (Array.isArray(students) && students.every(student => typeof student.grades === Array.isArray(student.grades) && student.grades.every(student.grade === 'number')  && typeof student.name === 'string')) {        
+    if (Array.isArray(students) && students.every(student => typeof student.name === 'string' && Array.isArray(student.grades)) && grades.every(grade => typeof grade === 'number')) {        
         
         const averageGrade = (students) => students.map(student => student.grades.reduce((acc, cur) => acc + cur, 0) / student.grades.length).reduce((prev, next) => prev + next, 0) / students.length;
              
@@ -167,17 +167,25 @@ let count = 0;
 // 3.2
 
 function repeatFunction (fn, num) {
+    if (num === 0) {
+        return 0;
+    }
 
-    for (let i = 1; i <= num; i++) {
+    else if (typeof num === 'number') {
+        for (let i = 1; i <= num; i++) {
 
-        fn (i);
-    } 
-    for (let i = 1; num < 0; i++) {  // infinite loop
+            fn (i);
+        } 
+        for (let i = 1; num < 0; i++) {  // infinite loop
 
-        fn (i);
-    } 
+            fn (i);
+        } 
+    }
+
+    else {
+        return 'Wrong input data types';
+    }
 }
-
 repeatFunction (console.log, 5); 
 
 /*
