@@ -17,9 +17,14 @@ let discount = 10;
 
 function calculateDiscountedPrice (obj, prop, discount) {
 
+    if (Array.isArray(products) && products.every(product => typeof product.price === 'number' && typeof product.name === 'string') && typeof discount === 'number') {
+
         discountedProducts = obj.map(value =>  value[prop] - (value[prop] * discount / 100));
     
         return discountedProducts;
+    }
+
+    throw new Error(`Wrong input data types`);
 }
 
 console.log('discounted prices', calculateDiscountedPrice(products, 'price', discount));
@@ -77,7 +82,7 @@ const filterUniqueWords = (strText) => {
         const filterEmptyWordsAndSort = arrayFromStrText.filter(word => word.length > 0).sort();
         return Array.from(new Set(filterEmptyWordsAndSort));
     }
-    throw new Error(`The ${strText} should be a string`)
+    throw new Error(`The ${strText} should be a string`);
 }
 
 console.log('an array of unique words, sorted in alphabetical order', filterUniqueWords(strText)); 
@@ -125,14 +130,10 @@ for (const value of iterator) {
       console.log(value);
     }
 
-const getAverageGrade1 = (students) => students.map(student => student.grades[0]).reduce((prev, next) => prev + next, 0) / students.length;
-const getAverageGrade2 = (students) => students.map(student => student.grades[1]).reduce((prev, next) => prev + next, 0) / students.length;
-const getAverageGrade3 = (students) => students.map(student => student.grades[2]).reduce((prev, next) => prev + next, 0) / students.length;
+const getAverageGrade = (students) => students.map(student => student.grades[i]).reduce((prev, next) => prev + next, 0) / students.length;
 
+console.log('1st class average grade of all students', getAverageGrade(students));
 
-console.log('1st class average grade of all students', getAverageGrade1(students));
-console.log('2nd class average grade of all students', getAverageGrade2(students));
-console.log('3rd class average grade of all students', getAverageGrade3(students));
 
 /*
 Task 3: Closures and Higher-Order Functions
