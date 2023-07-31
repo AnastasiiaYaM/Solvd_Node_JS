@@ -69,9 +69,11 @@ console.log('Full name is ', getFullName(person));
 
 let strText = 'hello Hello Alan ZERO zero wake Wake ALPHABET alpha ? ? ?';
 
-const filterUniqueWords = (strText) => strText.split(' ').sort((a, b) => a.localeCompare(b));
+const filterUniqueWords = (strText) => strText.toLowerCase().replace(/[.,!?]/g).split(' ').sort((a, b) => a.localeCompare(b)).filter( (item, pos, arr) => !pos || item !== arr[pos - 1]);
 
 console.log('an array of unique words, sorted in alphabetical order', filterUniqueWords(strText)); 
+
+// const filterUniqueWords = (strText) => strText.toLowerCase().replace(/[/[.,!?]/g, [0-9]/g,""]/g).split(' ').sort((a, b) => a.localeCompare(b)).filter( (item, pos, arr) => !pos || item !== arr[pos - 1]);
 
  //2.3
 
