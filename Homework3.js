@@ -68,9 +68,14 @@ const person = {
     lastName: 'Melenevych'
   };
   
-  function getFullName (obj){
+  function getFullName (obj) {
+
+    if (typeof person === 'object') {
 
     return obj.firstName + ' ' + obj.lastName;
+
+    } 
+    throw new Error(`The ${person} should be an object`);
   }
   
 console.log('Full name is ', getFullName(person));
