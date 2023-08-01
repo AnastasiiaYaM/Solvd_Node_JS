@@ -117,7 +117,7 @@ console.log('average grade of all students', getAverageGrade(students));
 /*
 const getAverageGrade = (students) => {
 
-    if (Array.isArray(students) && students.every(student => typeof student.name === 'string' && Array.isArray(student.grades)) && grades.every(grade => typeof grade === 'number')) {        
+    if (Array.isArray(students) && students.every(student => typeof student.name === 'string' && Array.isArray(student.grades)) && student.grades.every(grade => typeof grade === 'number')) {        
         
         const averageGrade = (students) => students.map(student => student.grades.reduce((acc, cur) => acc + cur, 0) / student.grades.length).reduce((prev, next) => prev + next, 0) / students.length;
              
@@ -144,14 +144,17 @@ Task 3: Closures and Higher-Order Functions
 
 function createCounter () {
 
-let count = 0;
+    let count = 0;
+    if (typeof count === 'number') {
 
-    return () => {
+        return () => {
 
-    return count++;
+        return count++;
 
+        }
+    } else {
+        throw new Error(`Wrong input data type`);
     }
-
 }
 
  const counter1 = createCounter ();
@@ -201,16 +204,20 @@ Task 4: Recursion and Tail Call Optimization
 
 function calculateFactorial (num) {
 
-    return recursiveFactorial (num, 1); 
+    if (typeof num === 'number') {
 
-  }
-  
-  function recursiveFactorial (num, accumulator) {
+         return recursiveFactorial (num, 1); 
 
-    if (num <= 0) return accumulator;
+        function recursiveFactorial (num, accumulator) {
+
+            if (num <= 0) return accumulator;
   
-    return recursiveFactorial (num-1, num*accumulator);
-  }
+             return recursiveFactorial (num-1, num*accumulator);
+        }
+    } else {
+        return 'impossible to calculate, because it is not a number';
+    }
+}
 
 let num = 4;
 
@@ -220,10 +227,15 @@ console.log(`factorial of ${num} is`, calculateFactorial (num));
 
 function power (base, exponent) {
 
-    if (exponent == 0) return 1;
+    if (typeof base === 'number' && typeof exponent === 'number') {
 
-    else return base * power(base, exponent - 1);
+        if (exponent == 0) return 1;
 
+        else return base * power(base, exponent - 1);
+
+    } else {
+        return 'Wrong input data types';
+    }
 }
 
 let base = 3;
@@ -245,20 +257,24 @@ Task 5: Lazy Evaluation and Generators
 let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function lazyMap (array) {
-
+    
 let arrayMapResults = [];
 
-    for (let i = 0, el; i < array.length; i++) {
+    if (Array.isArray(array) && array.every(item => typeof item === 'number')) {
 
-        el = array[i];
+        for (let i = 0, el; i < array.length; i++) {
 
-        if (el % 2) {
+            el = array[i];
 
-        arrayMapResults.push(`odd: ${el}`);
+            if (el % 2) {
 
+             arrayMapResults.push(`odd: ${el}`);
+
+            }   
         }
+    } else {
+        return 'Wrong input data types';
     }
-
 return arrayMapResults;
 
 }    
@@ -273,30 +289,34 @@ const fibonacciGenerator = (n) => {
     let start = 0;
     let next = 1;
 
-    switch (n) {
-        case 0:
-            break;
-        case 1:
-            result.push(start);
-            break;
-        case 2:
-            result.push(start);
-            result.push(next);
-            break;        
-        default:
-            result.push(start);
-            result.push(next);
-      for (let i = 2; i < n; i++) {
-        const val = start + next;
-        start = next;
-        next = val;
-        result.push(val);
-      }           
+    if (typeof n === 'number' && typeof start === 'number' && typeof next === 'number' && Array.isArray(result)) {
+
+        switch (n) {
+            case 0:
+                break;
+            case 1:
+                result.push(start);
+                break;
+            case 2:
+                result.push(start);
+                result.push(next);
+                break;        
+            default:
+                result.push(start);
+                result.push(next);
+            for (let i = 2; i < n; i++) {
+                const val = start + next;
+                start = next;
+                next = val;
+                result.push(val);
+            }           
+        }
+      return result;
+
+    } else {
+        return 'Wrong input data types';
     }
-    return result;
 }
 
-console.log(fibonacciGenerator(0));
-console.log(fibonacciGenerator(1));
-console.log(fibonacciGenerator(2));
+console.log(fibonacciGenerator('3'));
 console.log(fibonacciGenerator(10));
