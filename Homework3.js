@@ -150,16 +150,13 @@ Task 3: Closures and Higher-Order Functions
 function createCounter () {
 
     let count = 0;
-    if (typeof count === 'number') {
+    
+    return () => {
 
-        return () => {
+    return count++;
 
-        return count++;
-
-        }
-    } else {
-        throw new Error(`Wrong input data type`);
     }
+
 }
 
  const counter1 = createCounter ();
@@ -294,7 +291,7 @@ const fibonacciGenerator = (n) => {
     let start = 0;
     let next = 1;
 
-    if (typeof n === 'number' && typeof start === 'number' && typeof next === 'number' && Array.isArray(result)) {
+    if (typeof n === 'number') {
 
         switch (n) {
             case 0:
