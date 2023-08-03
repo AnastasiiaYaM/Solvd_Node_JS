@@ -14,40 +14,36 @@ Implement a method called updateInfo on the person object that takes a new info 
 Create a new property called address on the person object with an initial value of an empty object. Make this property non-enumerable and non-configurable.
 */
 
-let person = {
+const person = {
     firstName: "John",
     lastName: "Doe",
     age: 30,
     email: "john.doe@example.com"
 };
 
-Object.defineProperty(person, 'firstName', {writable: false});
-Object.defineProperty(person, 'lastName', {writable: false});
-Object.defineProperty(person, 'age', {writable: false});
-Object.defineProperty(person, 'email', {writable: false});
+Object.defineProperties(person, {'firstName': {writable: false}}, {'lastName': {writable: false}}, {'age': {writable: false}}, {'email': {writable: false}});
 
-person.age = 20;
+person.updateInfo = function (person) {
 
-console.log(person.age);
+    Object.defineProperties(updateInfo, {'firstName': {value: "Jane", writable: true}}, {'age': {value: 32,  writable: true}});
 
+    Object.defineProperties(updateInfo, {'firstName': {writable: false}}, {'age': {writable: false}});
 
-const updateInfo = (person) => {
-
-    Object.defineProperties(person, {'firstName': {writable: true}}, {'age': {writable: true}});
-
-    Object.defineProperties(person, {'firstName': {value: "Jane", writable: false}}, {'age': {value: 32,  writable: false}});
-
-    console.log('Updated person Info', person);
+    return person;
 }
 
-updateInfo(person);
+console.log('Updated person Info', person);
 
 console.log(Object.getOwnPropertyDescriptors(person).age.writable);
 
 
 Object.defineProperty(person, 'address', {value: {}, enumerable: false, configurable: false});
 
-console.log(person);
+const checkProp = Object.getOwnPropertyDescriptor(person, 'address');
+
+console.log('address property value is ', checkProp.value);
+
+
 
 
 /* Task 2: Object Property Enumeration and Deletion
@@ -115,8 +111,6 @@ console.log('deleteNonConfigurable fn', error.message);
 }
 
 
-
-
 /* Task 3: Object Property Getters and Setters
 
 Create an object called bankAccount with the following properties and values:
@@ -129,6 +123,47 @@ Use a setter to define a property called balance, which updates the account bala
 
 Implement a method called transfer on the bankAccount object that takes two bankAccount objects and an amount as arguments. The method should transfer the specified amount from the current account to the target account. Ensure that the balance and formattedBalance properties of both accounts are updated correctly.
 */
+
+let bankAccount = {
+    balance: 1000,
+
+    get formattedBalance() {
+
+        return `$ ${this.balance}`;
+    },
+    
+    set formattedBalance(val) {
+        this.balance = val;
+    }
+};
+
+let targetAccount = Object.create(bankAccount);
+targetAccount.balance = 0;
+
+bankAccount.transfer = function (bankAccount, targetAccount, amount) {
+    if (bankAccount.balance >= amount) {
+
+        bankAccount.balance -= amount;
+        targetAccount.balance += amount;
+    } else {
+        console.log('Balance is not enough to transfer');
+    }
+    return bankAccount.balance, targetAccount.balance;
+}
+
+bankAccount.transfer(bankAccount, targetAccount, 400);
+
+const checkProp2 = Object.getOwnPropertyDescriptor(bankAccount, 'balance');
+
+console.log('current balance ', checkProp2.value);
+
+console.log('current bank account formatted balance', bankAccount.formattedBalance);
+
+const checkProp3 = Object.getOwnPropertyDescriptor(targetAccount, 'balance');
+
+console.log('target balance ', checkProp3.value);
+
+console.log('target bank account formatted balance', targetAccount.formattedBalance);
 
 
 /* Task 4: Advanced Property Descriptors
