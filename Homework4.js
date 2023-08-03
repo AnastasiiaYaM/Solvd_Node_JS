@@ -65,6 +65,57 @@ Implement a function called getTotalPrice that takes the product object as an ar
 Implement a function called deleteNonConfigurable that takes an object and a property name as arguments. The function should delete the specified property from the object if it exists. If the property is non-configurable, throw an error with an appropriate message.
 */
 
+let product =  {
+    name: "Laptop",
+    price: 1000,
+    quantity: 5
+}
+
+
+Object.defineProperties(product, {'price': {enumerable: false, writable: false}}, {'quantity': {enumerable: false, writable: false}});
+
+const getTotalPrice = (product) => {
+    
+    const productPrice =Object.getOwnPropertyDescriptor(product, "price");
+
+    const productQuantity =Object.getOwnPropertyDescriptor(product, "quantity");
+
+    return productPrice.value * productQuantity.value;
+}
+
+getTotalPrice(product);
+
+
+const deleteNonConfigurable = (product, price) => {
+    
+    const productPrice =Object.getOwnPropertyDescriptor(product, "price");
+
+    if (productPrice.configurable === false) {
+
+        Reflect.deleteProperty(product, price);
+    }
+
+    else {
+        throw new Error ('the property is configurable');
+    }
+}
+
+// const descriptor = Object.getOwnPropertyDescriptor(product, 'price');
+
+// console.log(descriptor.configurable);
+
+let res = 0;
+try {
+  res = deleteNonConfigurable(product, 'price');
+  console.log(res);
+}
+catch(error) {
+console.log('deleteNonConfigurable fn', error.name);
+console.log('deleteNonConfigurable fn', error.message);
+}
+
+
+
 
 /* Task 3: Object Property Getters and Setters
 
