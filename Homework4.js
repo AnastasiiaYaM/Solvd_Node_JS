@@ -23,16 +23,16 @@ const person = {
 
 Object.defineProperties(person, {'firstName': {writable: false}}, {'lastName': {writable: false}}, {'age': {writable: false}}, {'email': {writable: false}});
 
-person.updateInfo = function (person) {
+const updateInfo = (person) => {
 
-    Object.defineProperties(updateInfo, {'firstName': {value: "Jane", writable: true}}, {'age': {value: 32,  writable: true}});
-
-    Object.defineProperties(updateInfo, {'firstName': {writable: false}}, {'age': {writable: false}});
-
-    return person;
+    Object.defineProperties(person, {'firstName': {writable: true}}, {'lastName': {writable: true}}, {'age': {writable: true, enumerable: false}}, {'email': {writable: true}});
+    
+    Object.defineProperties(person, {'firstName': {value: "Jane", writable: false}}, {'lastName': {writable: false}}, {'age': {value: 32, writable: false}}, {'email': {writable: false}});
+    
+    console.log('Updated person Info', person);
 }
 
-console.log('Updated person Info', person);
+updateInfo(person);
 
 console.log(Object.getOwnPropertyDescriptors(person).age.writable);
 
@@ -200,6 +200,25 @@ Implement a function called observeObject that takes an object and a callback fu
 
 Use the observeObject function to create a proxy for the person object from Task 1. The callback function should log the property name and the action (get or set) performed on the object.
 */
+
+const handler = {
+
+        get(object, key) {
+            if (typeof object[key] === 'object' && object[key] !== null) {
+              return new Proxy(object[key], handler);
+            }
+            return object[key];
+          },
+        set(object, prop, value) {
+            console.log(`changed ${prop} from ${object[prop]} to ${value}`);
+            object[prop] = value;
+        },
+      };
+
+const observeObject = new Proxy(person, handler);
+
+
+observeObject.age = 44;
 
 
 /* Task 6: Object Deep Cloning
