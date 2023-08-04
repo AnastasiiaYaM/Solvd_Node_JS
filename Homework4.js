@@ -262,3 +262,45 @@ console.log('deep clone object', deepCloneObject(person));
 
 Implement a function called validateObject that takes an object and a validation schema as arguments. The schema should define the required properties, their types, and any additional validation rules. The function should return true if the object matches the schema, and false otherwise. You can choose any schema you want
 */
+
+const validateObject = (obj, schema) => {
+
+let valid = true;
+  firstLevel: for(const k in schema) {
+    if(schema[k].constructor === Array) { // if prop is of type array
+      let i;
+      for(i = 0; i < schema[k].length; i++) {
+        for(const kk in schema[k][i]) {
+          if(!obj[k][i].hasOwnProperty(kk) || obj[k][i][kk].constructor !== schema[k][i][kk]) {
+            valid = false;
+            break firstLevel;
+          }
+        }
+      }
+    }
+    else if(schema[k].constructor === Object) { // if prop is of type object
+      for(const kk in schema[k]) {
+        if(!obj[k].hasOwnProperty(kk) || obj[k][kk].constructor !== schema[k][kk]) {
+          valid = false;
+          break firstLevel;
+        }
+      }
+    }
+    else { // if prop is simple type
+      if(!obj.hasOwnProperty(k) || obj[k].constructor !== schema[k]) {
+        valid = false;
+        break;
+      }
+    }
+  }
+  return valid;
+}
+
+const schema = {
+    name: String,
+    price: Number,
+    quantity: Number
+  };
+
+  console.log('the product object matches the schema', validateObject(product, schema));
+  console.log('the person object matches the schema', validateObject( person, schema));
