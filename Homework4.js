@@ -173,6 +173,26 @@ Implement a function called createImmutableObject that takes an object as an arg
 Use the createImmutableObject function to create an immutable version of the person object from Task 1.
 */
 
+const createImmutableObject = (object) => {
+
+    const propNames = Reflect.ownKeys(object);
+
+    for (const name of propNames) {
+
+        const value = object[name];
+
+    if ((value && typeof value === "object") || typeof value === "function") {
+
+        createImmutableObject(value);
+    }
+  }
+
+  return Object.freeze(object);
+}
+
+
+console.log('Creating an immutable object', createImmutableObject(person));
+console.log('This object is frozen', Object.isFrozen(person));
 
 /* Task 5: Object Observation
 
