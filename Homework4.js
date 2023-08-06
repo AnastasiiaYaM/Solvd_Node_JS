@@ -21,20 +21,20 @@ const person = {
     email: "john.doe@example.com"
 };
 
-Object.defineProperties(person, {'firstName': {writable: false}}, {'lastName': {writable: false}}, {'age': {writable: false}}, {'email': {writable: false}});
+Object.defineProperties(person, {firstName: {writable: false}, lastName: {writable: false}, age: {writable: false}, email: {writable: false}});
 
 const updateInfo = (person) => {
 
-    Object.defineProperties(person, {'firstName': {writable: true}}, {'lastName': {writable: true}}, {'age': {writable: true, enumerable: false}}, {'email': {writable: true}});
-    
-    Object.defineProperties(person, {'firstName': {value: "Jane", writable: false}}, {'lastName': {writable: false}}, {'age': {value: 32, writable: false}}, {'email': {writable: false}});
+    Object.defineProperties(person, {firstName: {writable: true}, age: {writable: true}});
+
+    Object.defineProperties(person, {firstName: {value: "Jane", writable: false}, age: {value: 32, writable: false}});
     
     console.log('Updated person Info', person);
 }
 
 updateInfo(person);
 
-console.log(Object.getOwnPropertyDescriptors(person).age.writable);
+console.log('age prop is writable', Object.getOwnPropertyDescriptors(person).age.writable);
 
 
 Object.defineProperty(person, 'address', {value: {}, enumerable: false, configurable: false});
@@ -43,7 +43,8 @@ const checkProp = Object.getOwnPropertyDescriptor(person, 'address');
 
 console.log('address property value is ', checkProp.value);
 
-
+console.log('address prop is enumerable', Object.getOwnPropertyDescriptors(person).address.enumerable);
+console.log('address prop is configurable', Object.getOwnPropertyDescriptors(person).address.configurable);
 
 
 /* Task 2: Object Property Enumeration and Deletion
