@@ -69,7 +69,7 @@ let product =  {
 }
 
 
-Object.defineProperties(product, {'price': {enumerable: false, writable: false}}, {'quantity': {enumerable: false, writable: false}});
+Object.defineProperties(product, {price: {enumerable: false, writable: false}, quantity: {enumerable: false, writable: false}});
 
 const getTotalPrice = (product) => {
     
@@ -82,29 +82,29 @@ const getTotalPrice = (product) => {
 
 getTotalPrice(product);
 
+// Object.defineProperty(product, 'price', {configurable: false});
 
 const deleteNonConfigurable = (product, price) => {
-    
-    const productPrice =Object.getOwnPropertyDescriptor(product, "price");
 
-    if (productPrice.configurable === false) {
+  const productPrice =Object.getOwnPropertyDescriptor(product, "price");
+  
+    if (productPrice.configurable === true) {
+  
+      delete product.price;
 
-        Reflect.deleteProperty(product, price);
+      return product;
     }
-
+  
     else {
-        throw new Error ('the property is configurable');
+      throw new Error ('Non-configurable properties cannot be removed(');
     }
-}
+  }
 
-// const descriptor = Object.getOwnPropertyDescriptor(product, 'price');
-
-// console.log(descriptor.configurable);
 
 let res = 0;
 try {
   res = deleteNonConfigurable(product, 'price');
-  console.log(res);
+  console.log('prop price was configurable and it was deleted', res);
 }
 catch(error) {
 console.log('deleteNonConfigurable fn', error.name);
