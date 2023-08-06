@@ -77,7 +77,7 @@ let specPropFilter = function (arrayProduct) {
 }
 
 
-customFilterUnique(arrayProduct, specPropFilter);
+console.log('Advanced Array Filtering', customFilterUnique(arrayProduct, specPropFilter));
 
 
 /* Task 2: Array Chunking
@@ -99,7 +99,7 @@ function chunkArray(arr, size) {
     return myArray;
   }
 
-chunkArray (['potato', 'tomato', 'lemon', 'orange', 'cabbage', 'carot', 'onion', 'garlic', 'pepper'], 3);
+  console.log('Array Chunking', chunkArray (['potato', 'tomato', 'lemon', 'orange', 'cabbage', 'carot', 'onion', 'garlic', 'pepper'], 3));
 
 /* Task 3: Array Shuffling
 
@@ -108,7 +108,7 @@ chunkArray (['potato', 'tomato', 'lemon', 'orange', 'cabbage', 'carot', 'onion',
 2. Implement the `customShuffle` function using an efficient shuffling algorithm to achieve uniform randomness.
 */
 
-const customShuffle = (array) => { 
+let customShuffle = (array) => { 
 
     for (let i = array.length - 1; i > 0; i--) { 
 
@@ -125,7 +125,8 @@ const customShuffle = (array) => {
 
   const shuffledMyArray = customShuffle(myArray); 
   
-  console.log(shuffledMyArray); 
+  console.log('custom array shuffling', shuffledMyArray); 
+
 
 /* Task 4: Array Intersection and Union
 
@@ -175,3 +176,39 @@ console.log('new array containing all unique elements from both arrays', getArra
 
 2. Use the `measureArrayPerformance` function to compare the performance of built-in array methods (`map`, `filter`, `reduce`, etc.) against your custom array manipulation functions.
 */
+
+let measureArrayPerformance = (fn, array) => {
+
+    const startTime = new Date().getTime();
+
+     fn(array);    
+
+    const endTime = new Date().getTime();
+
+    console.log((endTime - startTime), 'milliseconds');
+
+}
+
+measureArrayPerformance(customShuffle, myArray);
+
+
+let students = [
+    {
+        name: 'Olena',
+        grades: [ 100, 80, 75 ],
+    },
+    {
+        name: 'Boris',
+        grades: [ 85, 92, 94 ],
+    },
+    {
+        name: 'Petr',
+        grades: [ 70, 84, 78 ],
+    }
+    ]
+
+const getAverageGrade = (students) => students.map(student => student.grades.reduce((acc, cur) => acc + cur, 0) / student.grades.length).reduce((prev, next) => prev + next, 0) / students.length;
+
+measureArrayPerformance(getAverageGrade, students);
+
+
