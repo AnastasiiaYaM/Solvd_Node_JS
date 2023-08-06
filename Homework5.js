@@ -108,6 +108,24 @@ chunkArray (['potato', 'tomato', 'lemon', 'orange', 'cabbage', 'carot', 'onion',
 2. Implement the `customShuffle` function using an efficient shuffling algorithm to achieve uniform randomness.
 */
 
+const customShuffle = (array) => { 
+
+    for (let i = array.length - 1; i > 0; i--) { 
+
+      const j = Math.floor(Math.random() * (i + 1)); 
+
+      [array[i], array[j]] = [array[j], array[i]]; 
+    } 
+
+    return array; 
+  }; 
+    
+  
+  const myArray = ['potato', 'tomato', 'lemon', 'orange', 'cabbage', 'carot', 'onion', 'garlic', 'pepper']; 
+
+  const shuffledMyArray = customShuffle(myArray); 
+  
+  console.log(shuffledMyArray); 
 
 /* Task 4: Array Intersection and Union
 
