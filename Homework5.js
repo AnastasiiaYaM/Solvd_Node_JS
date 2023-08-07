@@ -135,24 +135,12 @@ let customShuffle = (array) => {
 2. Create a function called `getArrayUnion` that takes two arrays as arguments and returns a new array containing all unique elements from both arrays, without any duplicates.
 */
 
-let firstArray = [1, 3, 5, 7, 8, 9];
-let secondArray = [2, 3, 4, 5, 6, 9];
+let firstArray =[1, 3,3, 5,5, 7, 8, 9];
+let secondArray = [2, 3, 4, 5,5, 6, 8, 9];
  
 let getArrayIntersection = (firstArray, secondArray) => {
 
-    let newArray = [];
-
-    for (let i = 0; i < firstArray.length; i++) {
-
-        for (let j = 0; j < secondArray.length; j++) {
-
-            if (firstArray[i] === secondArray[j]) {
-
-                newArray.push(firstArray[i]);
-            }
-        }
-    }
-    return newArray;
+    return [...new Set(firstArray)].filter(Set.prototype.has, new Set(secondArray));
 };
  
 console.log('new array containing the common elements between the two arrays', getArrayIntersection(firstArray, secondArray));
@@ -160,13 +148,13 @@ console.log('new array containing the common elements between the two arrays', g
 
 let getArrayUnion = (firstArray, secondArray) => {
 
-    return firstArray.concat(secondArray.filter(function (item) {
-
+    return [...new Set(firstArray.concat(secondArray.filter(function (item) {
+    
         return firstArray.indexOf(item) === -1;
-
-    }));
-
-}
+    
+        })))];
+    
+    }
 
 console.log('new array containing all unique elements from both arrays', getArrayUnion(firstArray, secondArray));
 
