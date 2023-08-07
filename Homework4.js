@@ -18,33 +18,38 @@ const person = {
     firstName: "John",
     lastName: "Doe",
     age: 30,
-    email: "john.doe@example.com"
-};
+    email: "john.doe@example.com",
+    updateInfo: function (info) {
+      const keys = Object.keys(info).filter(key => {
+      return Object.getOwnPropertyDescriptor(info, key).writable;
+      });
+      const properties = {};
+        for (let key of keys) {
+          const descriptor = { value: info[key] };
+          if (!this.hasOwnProperty(key)) {
+          descriptor.enumerable = true;
+          }
+          properties[key] = descriptor;
+        }
+      Object.defineProperties(this, {
+       ...properties,
+      });
+      return this;
+    },
+    };
+      
 
-Object.defineProperties(person, {firstName: {writable: false}, lastName: {writable: false}, age: {writable: false}, email: {writable: false}});
+Object.defineProperties(person, {firstName: {writable: false}, lastName: {writable: false}, age: {writable: false}, email: {writable: false}, updateInfo: {enumerable: false, writable: false}});
 
-const updateInfo = (person) => {
+person.updateInfo({firstName: "Jane", age: 32});
 
-    Object.defineProperties(person, {firstName: {writable: true}, age: {writable: true}});
+console.log('updateInfo', person);
 
-    Object.defineProperties(person, {firstName: {value: "Jane", writable: false}, age: {value: 32, writable: false}});
-    
-    console.log('Updated person Info', person);
-}
-
-updateInfo(person);
+console.log('firstname prop is writable', Object.getOwnPropertyDescriptors(person).firstName.writable);
 
 console.log('age prop is writable', Object.getOwnPropertyDescriptors(person).age.writable);
 
-
 Object.defineProperty(person, 'address', {value: {}, enumerable: false, configurable: false});
-
-const checkProp = Object.getOwnPropertyDescriptor(person, 'address');
-
-console.log('address property value is ', checkProp.value);
-
-console.log('address prop is enumerable', Object.getOwnPropertyDescriptors(person).address.enumerable);
-console.log('address prop is configurable', Object.getOwnPropertyDescriptors(person).address.configurable);
 
 
 /* Task 2: Object Property Enumeration and Deletion
