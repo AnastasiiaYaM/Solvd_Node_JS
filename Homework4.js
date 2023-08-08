@@ -187,13 +187,13 @@ Use the createImmutableObject function to create an immutable version of the per
 
 let createImmutableObject = (object) => {
 
-  let propNames = Reflect.ownKeys(object).forEach(name => {
-   Object.defineProperty(object, name, {
+  Reflect.ownKeys(object).forEach(name => {
+    Object.defineProperty(object, name, {
        writable: false
     });
-});
+  });
 
-   let value = object[name];
+  let value = object[name];
 
   if ((value && typeof value === "object") || typeof value === "function") {
 
@@ -203,6 +203,7 @@ let createImmutableObject = (object) => {
 
 return Object.seal(object);
 }
+
 console.log('Creating an immutable object', createImmutableObject(product));
 
 console.log(Object.isSealed(product));
