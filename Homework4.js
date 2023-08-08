@@ -89,21 +89,27 @@ getTotalPrice(product);
 
 // Object.defineProperty(product, 'price', {configurable: false});
 
-const deleteNonConfigurable = (product, price) => {
+const deleteNonConfigurable = (obj, prop) => {
 
-  const productPrice =Object.getOwnPropertyDescriptor(product, "price");
-  
-    if (productPrice.configurable === true) {
-  
-      delete product.price;
+  if (typeof obj !== 'object') {
 
-      return product;
-    }
+    throw new Error("Wrong input type. Must be an object");
+  }
   
-    else {
-      throw new Error ('Non-configurable properties cannot be removed(');
+  if (obj.hasOwnProperty(prop)) {
+
+    if (Object.getOwnPropertyDescriptor(obj, prop).configurable) {
+      
+      delete obj[prop];
+
+      return obj;
+    
+    } else {
+    
+      throw new Error("Existing value is non-configurable");
     }
   }
+}
 
 
 let res = 0;
