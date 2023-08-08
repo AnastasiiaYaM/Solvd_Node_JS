@@ -5,12 +5,45 @@
 2. Use the `customFilterUnique` function to filter an array of objects based on a specific property and return only unique objects.
 */
 
+let customFilterUnique = function(array, callback) {
+
+    if (Array.isArray(array) && typeof callback === "function") { 
+
+    const newArray = array.filter(callback);
+
+    console.log(newArray);
+    
+    } else if (Array.isArray(array) !== true) {
+
+        console.log('Make sure that your array is an array')
+
+    } else if (typeof callback !== "function") {
+
+        console.log('Callback should be a function')
+    }
+  }
+  
+let numberList = [1,2 ,3,4,5,5,6,6];
+
+let fnCallback = (x) => x > 2;
+
+customFilterUnique(numberList, fnCallback);
+
+/*
 let customFilterUnique = function (array, callback) {
 
     if (Array.isArray(array) && typeof callback === "function") { 
 
         return callback(array);
+    } else if (Array.isArray(array) !== true) {
+
+        console.log('Make sure that your array is an array')
+
+    } else if (typeof callback !== "function") {
+
+        console.log('Callback should be a function')
     }
+
 }
 
 
@@ -78,7 +111,7 @@ let specPropFilter = function (arrayProduct) {
 
 
 console.log('Advanced Array Filtering', customFilterUnique(arrayProduct, specPropFilter));
-
+*/
 
 /* Task 2: Array Chunking
 
