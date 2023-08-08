@@ -240,8 +240,20 @@ Implement a function called observeObject that takes an object and a callback fu
 Use the observeObject function to create a proxy for the person object from Task 1. The callback function should log the property name and the action (get or set) performed on the object.
 */
 
-const handler = {
+const observeObject = (object, callback) => {
 
+  if ((typeof object !== "object") && typeof callback !== "function") {
+
+    throw new Error("Wrong input type");
+
+  } 
+
+  return callback(object);
+  
+}
+
+const fnCallback = (object) => {
+  const handler = {
         get(object, key) {
             if (typeof object[key] === 'object' && object[key] !== null) {
               return new Proxy(object[key], handler);
@@ -253,12 +265,11 @@ const handler = {
             object[prop] = value;
         },
       };
+    return new Proxy(object,handler);
+}
 
-const observeObject = new Proxy(person, handler);
 
-
-observeObject.age = 44;
-
+console.log(observeObject(person, fnCallback));
 
 /* Task 6: Object Deep Cloning
 
