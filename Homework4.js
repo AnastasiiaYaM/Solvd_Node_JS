@@ -160,7 +160,6 @@ bankAccount.transfer = function (bankAccount, targetAccount, amount) {
     } else {
         console.log('Balance is not enough to transfer');
     }
-    return bankAccount.balance, targetAccount.balance;
 }
 
 bankAccount.transfer(bankAccount, targetAccount, 400);
