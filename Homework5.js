@@ -9,7 +9,7 @@ let customFilterUnique = function(array, callback) {
 
     if (Array.isArray(array) && typeof callback === "function") { 
 
-    const newArray = array.filter(callback);
+    const newArray = [...new Set(array)].filter(callback);
 
     console.log(newArray);
 
