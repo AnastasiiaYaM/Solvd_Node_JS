@@ -12,7 +12,7 @@ let customFilterUnique = function(array, callback) {
     const newArray = array.filter(callback);
 
     console.log(newArray);
-    
+
     } else if (Array.isArray(array) !== true) {
 
         console.log('Make sure that your array is an array')
@@ -29,89 +29,6 @@ let fnCallback = (x) => x > 2;
 
 customFilterUnique(numberList, fnCallback);
 
-/*
-let customFilterUnique = function (array, callback) {
-
-    if (Array.isArray(array) && typeof callback === "function") { 
-
-        return callback(array);
-    } else if (Array.isArray(array) !== true) {
-
-        console.log('Make sure that your array is an array')
-
-    } else if (typeof callback !== "function") {
-
-        console.log('Callback should be a function')
-    }
-
-}
-
-
-const arrayProduct = [
-    {
-        name: 'laptop',
-        price: 3000,
-        quantity: 5
-    },
-    {
-        name: 'smartphone',
-        price: 900,
-        quantity: 5
-    },
-    {
-        name: 'laptop',
-        price: 5000,
-        quantity: 2
-    },
-    {
-        name: 'TV',
-        price: 900,
-        quantity: 5
-    },
-    {
-        name: 'laptop',
-        price: 3000,
-        quantity: 5
-    },
-    {
-        name: 'TV',
-        price: 300,
-        quantity: 2
-    },
-    {
-        name: 'tablet',
-        price: 1100,
-        quantity: 1
-    },
-    {
-        name: 'TV',
-        price: 900,
-        quantity: 5
-    },
-    {
-        name: 'smartphone',
-        price: 900,
-        quantity: 5
-    }
-  ];
-
-
-let specPropFilter = function (arrayProduct) {
-   
-    let currentFilter = [];
-
-    if (Array.isArray(arrayProduct) && arrayProduct.every(product => typeof product.name === 'string' && typeof product.price === 'number' && typeof product.quantity === 'number')) {
-
-    currentFilter = arrayProduct.filter((obj, index) => arrayProduct.findIndex((item) => item.name === obj.name && item.price === obj.price && item.quantity === obj.quantity) === index);
-
-    } 
-
-    return currentFilter;
-}
-
-
-console.log('Advanced Array Filtering', customFilterUnique(arrayProduct, specPropFilter));
-*/
 
 /* Task 2: Array Chunking
 
