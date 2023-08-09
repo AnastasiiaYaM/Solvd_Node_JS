@@ -45,10 +45,6 @@ person.updateInfo({firstName: "Jane", age: 32});
 
 console.log('updateInfo', person);
 
-console.log('firstname prop is writable', Object.getOwnPropertyDescriptors(person).firstName.writable);
-
-console.log('age prop is writable', Object.getOwnPropertyDescriptors(person).age.writable);
-
 Object.defineProperty(person, 'address', {value: {}, enumerable: false, configurable: false});
 
 
@@ -78,9 +74,9 @@ Object.defineProperties(product, {price: {enumerable: false, writable: false}, q
 
 const getTotalPrice = (product) => {
     
-    const productPrice =Object.getOwnPropertyDescriptor(product, "price");
+    const productPrice = Object.getOwnPropertyDescriptor(product, "price");
 
-    const productQuantity =Object.getOwnPropertyDescriptor(product, "quantity");
+    const productQuantity = Object.getOwnPropertyDescriptor(product, "quantity");
 
     return productPrice.value * productQuantity.value;
 }
@@ -187,31 +183,36 @@ Use the createImmutableObject function to create an immutable version of the per
 
 let createImmutableObject = (object) => {
 
-  Object.keys(object).forEach(name => {
-    Object.defineProperty(object, name, {
-       writable: false, enumerable: false, configurable: false
-    });
-  });
-  
-  let propNames = Object.keys(object);
-
-    for (const name of propNames) {
-
-        const value = object[name];
-
-    if ((value && typeof value === "object") || typeof value === "function") {
-
-        createImmutableObject(value);
-    }
+  if (typeof object !== 'object' || object === null) {
+      throw new Error("Wrong input type. Must be an object");
   }
 
-return Object.preventExtensions(object);
+  for (let prop in object) {
+
+    if (object.hasOwnProperty(prop)) {
+
+      Object.keys(object).forEach(prop => {
+
+        Object.defineProperty(object, prop, {
+        writable: false,
+        configurable: false
+        });
+
+      });
+
+      if (Object.getOwnPropertyDescriptor(object, prop).value != null && typeof Object.getOwnPropertyDescriptor(object, prop).value === 'object') {
+
+        Object.getOwnPropertyDescriptor(object, prop).value = createImmutableObject(Object.getOwnPropertyDescriptor(object, prop).value);
+      }
+    }
+  
+  return object;
+  }
 }
 
 console.log('Creating an immutable object', createImmutableObject(product));
 
-console.log('is Extensible', Object.isExtensible(product));
-
+// console.log(Object.getOwnPropertyDescriptors(product).quantity.writable);
 
 /*
 const createImmutableObject = (object) => {
@@ -222,7 +223,7 @@ const createImmutableObject = (object) => {
 
         const value = object[name];
 
-    if ((value && typeof value === "object") || typeof value === "function") {
+    if ((value && typeof value === "object") || typeof value !== null) {
 
         createImmutableObject(value);
     }
