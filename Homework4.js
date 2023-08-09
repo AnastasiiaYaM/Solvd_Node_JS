@@ -187,28 +187,31 @@ Use the createImmutableObject function to create an immutable version of the per
 
 let createImmutableObject = (object) => {
 
-  Reflect.ownKeys(object).forEach(name => {
+  Object.keys(object).forEach(name => {
     Object.defineProperty(object, name, {
-       writable: false
+       writable: false, enumerable: false, configurable: false
     });
   });
-
-  let value = object[name];
-
-  if ((value && typeof value === "object") || typeof value === "function") {
-
-      createImmutableObject(value);
   
-}
+  let propNames = Object.keys(object);
 
-return Object.seal(object);
+    for (const name of propNames) {
+
+        const value = object[name];
+
+    if ((value && typeof value === "object") || typeof value === "function") {
+
+        createImmutableObject(value);
+    }
+  }
+
+return Object.preventExtensions(object);
 }
 
 console.log('Creating an immutable object', createImmutableObject(product));
 
-console.log(Object.isSealed(product));
+console.log('is Extensible', Object.isExtensible(product));
 
-console.log(Object.getOwnPropertyDescriptors(product).quantity.writable);
 
 /*
 const createImmutableObject = (object) => {
