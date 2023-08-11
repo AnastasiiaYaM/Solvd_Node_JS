@@ -29,12 +29,12 @@ function localize (language) {
 
              if (string === "greet") {
 
-                finalString = `${Object.getOwnPropertyDescriptor(Object.keys(translations)[1], 'greet').value}`;
+                finalString = `${Object.getOwnPropertyDescriptor(translations.fr, 'greet').value}`;
             }
 
             else if (string === "intro") {
 
-                finalString = `${Object.getOwnPropertyDescriptor(Object.keys(translations)[1], 'intro').value}`;
+                finalString = `${Object.getOwnPropertyDescriptor(translations.fr, 'intro').value}`;
             }
         
             break;
@@ -43,18 +43,18 @@ function localize (language) {
 
              if (string === "greet") {
                 
-                finalString = `${Object.getOwnPropertyDescriptor(Object.keys(translations)[1], 'greet').value}`;
+                finalString = `${Object.getOwnPropertyDescriptor(translations.fr, 'greet').value}`;
             }
 
             else if (string === "intro") {
 
-                finalString = `${Object.getOwnPropertyDescriptor(Object.keys(translations)[1], 'intro').value}`;
+                finalString = `${Object.getOwnPropertyDescriptor(translations.fr, 'intro').value}`;
             }
 
             break;
       }
 
-    return finalString;   
+    return console.log(finalString);   
     }
 }
 
