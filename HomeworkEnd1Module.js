@@ -81,17 +81,27 @@ const code = multiline`
 function add(a, b) {  
 return a + b;  
 }  
-`;  
+`;   
   
 function multiline(strings) {
 
-    const N = "\n";
+    let counter = (function() {
+        let count = 1;
+        return function() {
+            return count ++;
+        }
 
-      return  `${N}1 ${strings[0]} ${N} 2 ${strings[1]} ${N} 3 ${strings[2]}`;
+    }) ();
+
+    num1 = counter();
+    num2 = counter();
+    num3 = counter();
+    
+      return  `${num1} ${strings[0]} ${num2} ${strings[1]} ${num3} ${strings[2]}`;
 
 }
 
-console.log(code);  
+console.log(code); 
 // Expected:  
 // "1 function add(a, b) {  
 // 2 return a + b;  
