@@ -61,7 +61,7 @@ function highlightKeywords(templateString, arr) {
 
     finalStr = templateString.replace('\${0}', spanKeywords[0]).replace('\${1}', spanKeywords[1]).replace('\${2}', spanKeywords[2]);
 
-    return console.log(finalStr);
+    return finalStr;
 
 }
 
