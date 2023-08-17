@@ -13,47 +13,36 @@ const translations = {
     }  
 };  
 	  
-const language = "fr"; // Change to "en" for English  
 const greeting = "greet";  
 const introduction = "intro";  
 
+function localize (strings, ...values) {
 
-function localize (language) {
+    const language = "fr"; // Change to "en" for English  
 
-    return function(string) {
-    let finalString = "";
-      switch (language) {
-        case "fr":
-            if (Object.hasOwn(translations.fr, `${greeting}`)) {
-                finalString = `${string}`.replace(`${string}`, translations.fr[`${greeting}`]);
-            }
-            if (Object.hasOwn(translations.fr, `${introduction}`)) {
-                finalString = `${string}`.replace(`${string}`, translations.fr[`${introduction}`]);
-            }
-            else {console.log('Wrong input data')}
-        break;
-        case "en":
-            if (Object.hasOwn(translations.fr, `${greeting}`)) {
-                finalString = `${string}`.replace(`${string}`, translations.en[`${greeting}`]);
-            }
-            if (Object.hasOwn(translations.fr, `${introduction}`)) {
-                finalString = `${string}`.replace(`${string}`, translations.en[`${introduction}`]);
-            }
-            else {console.log('Wrong input data')}
-        break;
-      }
+    if (!(language in translations)) { 
+       
+        throw new Error('Wrong Language Value');
+    }
+    if (language in translations) {
 
-    return  finalString;   
+      const oneOfYourArrays = translations[language]; 
+
+      let result = '';
+      strings.forEach((str, i) => {
+        result += `${str}${i === strings.length - 1 ? '' : values[i]}`;
+      });
+
+    return oneOfYourArrays[result];
+
     }
 }
-const localizedGreeting = localize("fr")`${greeting}`; 
-//const localizedGreetingEn = localize("en")`${greeting}`;  
-//const localizedIntroduction = localize("fr")`${introduction}`;  
+
+const localizedGreeting = localize`${greeting}`;  
+const localizedIntroduction = localize`${introduction}`;
   
 console.log(localizedGreeting); // Expected: "Bonjour" (for language "fr")  
-//console.log(localizedIntroduction); // Expected: "Bienvenue sur notre site web" (for language "fr")
-
-//console.log(localizedGreetingEn);
+console.log(localizedIntroduction); // Expected: "Bienvenue sur notre site web" (for language "fr")
 
 
 /* Task 2: Advanced Tagged Template
@@ -81,3 +70,29 @@ const highlighted = highlightKeywords(template, keywords);
 console.log(highlighted); 
  
 // Expected: "Learn <span class='highlight'>JavaScript</span> tagged templates to create custom <span class='highlight'>template</span> literals for <span class='highlight'>tagged</span> manipulation."
+
+/*
+Task 3: Multiline Tagged Template
+
+Implement a multiline tagged template function called `multiline` that takes a template string and returns a string with line numbers added at the beginning of each line. The line numbers should start from 1 and increase for each line. Preserve the original indentation of each line.
+*/
+
+const code = multiline`  
+function add(a, b) {  
+return a + b;  
+}  
+`;  
+  
+function multiline(strings) {
+
+    const N = "\n";
+
+      return  `${N}1 ${strings[0]} ${N} 2 ${strings[1]} ${N} 3 ${strings[2]}`;
+
+}
+
+console.log(code);  
+// Expected:  
+// "1 function add(a, b) {  
+// 2 return a + b;  
+// 3 }"
