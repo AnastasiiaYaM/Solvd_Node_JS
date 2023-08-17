@@ -77,27 +77,21 @@ Task 3: Multiline Tagged Template
 Implement a multiline tagged template function called `multiline` that takes a template string and returns a string with line numbers added at the beginning of each line. The line numbers should start from 1 and increase for each line. Preserve the original indentation of each line.
 */
 
-const code = multiline`  
-function add(a, b) {  
+const code = multiline
+`function add(a, b) {  
 return a + b;  
-}  
-`;   
-  
-function multiline(strings) {
+}`;  
 
-    let counter = (function() {
-        let count = 1;
-        return function() {
-            return count ++;
-        }
+function multiline(strings, ...values) {
 
-    }) ();
-
-    num1 = counter();
-    num2 = counter();
-    num3 = counter();
+    let result = '';
+    strings.forEach((str, i) => {
+      result += `${str}${i === strings.length - 1 ? '' : values[i]}`;
+    });
     
-      return  `${num1} ${strings[0]} ${num2} ${strings[1]} ${num3} ${strings[2]}`;
+    const numbered = result.split('\n').map((line, index) => `${index + 1}. ${line}`).join('\n');
+    
+      return  numbered;
 
 }
 
