@@ -100,3 +100,104 @@ console.log(code);
 // "1 function add(a, b) {  
 // 2 return a + b;  
 // 3 }"
+
+/*
+Task 4: Implementing Debounce Function
+
+Your task is to implement a debounce function that takes a function and a delay time as arguments. The goal of the debounce function is to ensure that the provided function is only executed after the user stops invoking it for the specified delay time.
+
+**Instructions**
+
+1. Implement a function called `debounce` that takes two arguments:
+
+- `func`: The function to be debounced.
+- `delay`: The delay time (in milliseconds) before the function is executed.
+
+2. The `debounce` function should return a new function that wraps the provided function.
+3. When the new function is invoked, it should:
+
+- Clear any existing timeout.
+- Set a new timeout to execute the provided function after the specified delay time.
+
+4. Test your `debounce` function by using it to debounce an input event listener. Ensure that the provided function is only called once after the user stops typing for the specified delay time.
+
+*/
+
+function debouncedSearch(query) {  
+  // Perform search operation with the query  
+  console.log("Searching for:", query);  
+  }  
+    
+  const debouncedSearchHandler = debounce(debouncedSearch, 300);  
+    
+  const inputElement = document.getElementById("search-input");  
+  inputElement.addEventListener("input", event => {  
+  debouncedSearchHandler(event.target.value);  
+  });
+
+
+  /*
+Task 5: Implementing Throttle Function
+
+Your task is to implement a throttle function that takes a function and a time interval as arguments. The throttle function should ensure that the provided function is executed at most once within the specified time interval.
+
+**Instructions**
+
+1. Implement a function called `throttle` that takes two arguments:
+
+- `func`: The function to be throttled.
+- `interval`: The time interval (in milliseconds) within which the function can be executed.
+
+2. The `throttle` function should return a new function that wraps the provided function.
+3. When the new function is invoked, it should:
+
+- Check if the specified time interval has elapsed since the last execution of the provided function.
+- If the interval has not elapsed, ignore the invocation.
+- If the interval has elapsed, execute the provided function and update the last execution timestamp.
+
+4. Test your `throttle` function by using it to throttle a scroll event listener. Ensure that the provided function is executed at most once within the specified time interval during rapid scrolling.  
+*/
+
+function onScroll(event) {  
+  // Handle scroll event  
+  console.log("Scroll event:", event);  
+  }  
+    
+  const throttledScrollHandler = throttle(onScroll, 1000);  
+    
+  window.addEventListener("scroll", throttledScrollHandler);
+
+  /*
+Task 6: Currying Function Implementation
+
+Your task is to implement a currying function that converts a given function into a curried version. Currying is a technique in which a function that takes multiple arguments is transformed into a sequence of functions, each taking a single argument.
+
+**Instructions**
+
+1. Implement a function called `curry` that takes two arguments:
+
+- `func`: The function to be curried.
+- `arity`: The number of arguments the original function takes.
+
+2. The `curry` function should return a new curried function.
+3. The curried function should keep accepting arguments until it has received the specified number of arguments (`arity`). Once all arguments are received, the original function should be executed with the collected arguments.
+4. If the curried function is invoked with fewer arguments than `arity`, it should return a new curried function that waits for the remaining arguments.
+
+*/
+
+function multiply(a, b, c) {  
+return a * b * c;  
+}  
+  
+const curriedMultiply = curry(multiply, 3);  
+  
+const step1 = curriedMultiply(2); // Returns a curried function  
+const step2 = step1(3); // Returns a curried function  
+const result = step2(4); // Returns the final result: 2 * 3 * 4 = 24  
+  
+console.log("Result:", result); // Expected: 24
+
+
+/*
+Extend your currying function to allow partial application. Implement a special symbol (e.g., _) that represents a placeholder for missing arguments. The curried function should be able to accept arguments in any order, while placeholders are used for missing arguments.
+*/
