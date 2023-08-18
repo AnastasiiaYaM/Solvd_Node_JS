@@ -55,7 +55,8 @@ const template = "Learn \${0} tagged templates to create custom \${1} literals f
   
 function highlightKeywords(templateString, arr) {
 
-    finalStr = "";
+    let finalStr = "";
+    // const re = new RegExp("\${");
 
     const spanKeywords = arr.map(el => `<span class='highlight'>${el}</span>`);
 
