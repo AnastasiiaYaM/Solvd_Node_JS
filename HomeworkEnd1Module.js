@@ -185,19 +185,56 @@ Your task is to implement a currying function that converts a given function int
 
 */
 
-function multiply(a, b, c) {  
-return a * b * c;  
+const multiply = function (a, b, c) {  
+  return a * b * c;  
 }  
   
-const curriedMultiply = curry(multiply, 3);  
+
+function curry(func, arity = func.length) {
+  return function carried(...args) {
+    if (args.length >= arity) {
+      return func(...args);
+    } else {
+      return curry(func.bind(this, ...args), arity - args.length);
+    }
+  };
+}
+
+const curriedMultiply = curry(multiply, 3); 
+
+console.log(curriedMultiply);
   
 const step1 = curriedMultiply(2); // Returns a curried function  
 const step2 = step1(3); // Returns a curried function  
 const result = step2(4); // Returns the final result: 2 * 3 * 4 = 24  
-  
+// console.log("Step 1:", step1);
+// console.log("Step 2:", step2);
 console.log("Result:", result); // Expected: 24
 
 
 /*
 Extend your currying function to allow partial application. Implement a special symbol (e.g., _) that represents a placeholder for missing arguments. The curried function should be able to accept arguments in any order, while placeholders are used for missing arguments.
 */
+
+const _ = Symbol();
+
+const curry = (functionToCurry, numberOfArguments = functionToCurry.length) => {
+  const waitForArguments = (...attrs) => {
+    const waitForMoreArguments = (...nextAttrs) => {
+      const filledAttrs = attrs.map(attr => {
+        // if any of attrs is placeholder _, nextAttrs should first fill that
+        return attr === _ && nextAttrs.length ?
+          nextAttrs.shift() :
+          attr;
+      });
+      return waitForArguments(...filledAttrs, ...nextAttrs);
+    };
+
+    // wait for all arguments to be present and not skipped
+    return attrs.filter(arg => arg !== _).length >= numberOfArguments ?
+      functionToCurry(...attrs) :
+      waitForMoreArguments;
+  };
+
+  return waitForArguments;
+};
