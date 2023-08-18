@@ -216,25 +216,32 @@ console.log("Result:", result); // Expected: 24
 Extend your currying function to allow partial application. Implement a special symbol (e.g., _) that represents a placeholder for missing arguments. The curried function should be able to accept arguments in any order, while placeholders are used for missing arguments.
 */
 
-const _ = Symbol();
+const _ = curry.placeholder;
 
-const curry = (functionToCurry, numberOfArguments = functionToCurry.length) => {
-  const waitForArguments = (...attrs) => {
-    const waitForMoreArguments = (...nextAttrs) => {
-      const filledAttrs = attrs.map(attr => {
-        // if any of attrs is placeholder _, nextAttrs should first fill that
-        return attr === _ && nextAttrs.length ?
-          nextAttrs.shift() :
-          attr;
-      });
-      return waitForArguments(...filledAttrs, ...nextAttrs);
-    };
 
-    // wait for all arguments to be present and not skipped
-    return attrs.filter(arg => arg !== _).length >= numberOfArguments ?
-      functionToCurry(...attrs) :
-      waitForMoreArguments;
-  };
+function curryPart(func, arity = func.length) {
+  return function carried(...args) {
 
-  return waitForArguments;
-};
+    const realArgs = args.slice(0, arity);
+    const hasPlaceholder = realArgs.some(arg => arg === _);
+
+    if (hasPlaceholder.length > 0) {
+      console.log('You should fill in placeholders');
+    } 
+    if (!hasPlaceholder && realArgs.length >= arity) {
+      return func(...args);
+    } else {
+      return curry(func.bind(this, ...args), arity - args.length);
+    }
+    
+  }
+} 
+    
+const curriedMultiplyPart = curryPart(multiply, 3); 
+
+console.log(curriedMultiplyPart);
+  
+const step1Part = curriedMultiplyPart(2);
+const step2Part = step1Part(3); 
+const resultPart = step2Part(4);
+console.log("Result:", resultPart);   
