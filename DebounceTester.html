@@ -1,0 +1,40 @@
+<html lang="en">
+  <head>
+    <title>getElementById example</title>
+    <script>
+    function debouncedSearch(query) {  
+  // Perform search operation with the query  
+  console.log("Searching for:", query);  
+  }  
+
+  function as() {
+            alert('Wait plz')
+        }
+
+    function debounce(func, delay) {
+        let timeout
+
+        return function (...args) {
+        const effect = () => {
+            timeout = null
+            return func.apply(this, args)
+        }
+
+            clearTimeout(timeout)
+            timeout = setTimeout(effect, delay)
+        }
+}
+
+const debouncedSearchHandler = debounce(debouncedSearch, 300);  
+  
+const inputElement = document.getElementById("search-input");  
+inputElement.addEventListener("input", event => {  
+debouncedSearchHandler(event.target.value);  
+}); 
+    </script>
+  </head>
+  <body>
+    <p>1st paragraph</p>
+    <button id="search-input" onclick="as()">Search</button>
+  </body>
+</html>
