@@ -127,13 +127,27 @@ function debouncedSearch(query) {
   // Perform search operation with the query  
   console.log("Searching for:", query);  
   }  
+
+function debounce(func, delay) {
+  let timeout
+
+  return function (...args) {
+    const effect = () => {
+      timeout = null
+      return func.apply(this, args)
+    }
+
+    clearTimeout(timeout)
+    timeout = setTimeout(effect, delay)
+  }
+}
+
+const debouncedSearchHandler = debounce(debouncedSearch, 300);  
     
-  const debouncedSearchHandler = debounce(debouncedSearch, 300);  
-    
-  const inputElement = document.getElementById("search-input");  
-  inputElement.addEventListener("input", event => {  
+const inputElement = document.getElementById("search-input");  
+inputElement.addEventListener("input", event => {  
   debouncedSearchHandler(event.target.value);  
-  });
+});
 
 
   /*
@@ -162,10 +176,25 @@ function onScroll(event) {
   // Handle scroll event  
   console.log("Scroll event:", event);  
   }  
+
+function throttle(func, interval) {
+  let shouldWait = false
+
+  return function (...args) {
+    if (!shouldWait) {
+      func.apply(this, args)
+      shouldWait = true
+
+      setTimeout(function () {
+        shouldWait = false
+      }, interval)
+    }
+  }
+}
+
+const throttledScrollHandler = throttle(onScroll, 1000);  
     
-  const throttledScrollHandler = throttle(onScroll, 1000);  
-    
-  window.addEventListener("scroll", throttledScrollHandler);
+window.addEventListener("scroll", throttledScrollHandler);
 
   /*
 Task 6: Currying Function Implementation
