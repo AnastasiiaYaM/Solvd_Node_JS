@@ -143,11 +143,13 @@ function debounce(func, delay) {
 }
 
 const debouncedSearchHandler = debounce(debouncedSearch, 300);  
-    
+  
 const inputElement = document.getElementById("search-input");  
 inputElement.addEventListener("input", event => {  
-  debouncedSearchHandler(event.target.value);  
-});
+debouncedSearchHandler(event.target.value);  
+}); 
+
+// console.log(debouncedSearchHandler);
 
 
   /*
@@ -195,6 +197,8 @@ function throttle(func, interval) {
 const throttledScrollHandler = throttle(onScroll, 1000);  
     
 window.addEventListener("scroll", throttledScrollHandler);
+
+// console.log(throttledScrollHandler);
 
   /*
 Task 6: Currying Function Implementation
