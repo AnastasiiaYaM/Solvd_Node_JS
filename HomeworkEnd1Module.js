@@ -55,16 +55,21 @@ const template = "Learn \${0} tagged templates to create custom \${1} literals f
   
 function highlightKeywords(templateString, arr) {
 
-    let finalStr = "";
-    // const re = new RegExp("\${");
+    let result = templateString;
 
-    const spanKeywords = arr.map(el => `<span class='highlight'>${el}</span>`);
+    const splitted = templateString.split(' ');
 
-    finalStr = templateString.replace('\${0}', spanKeywords[0]).replace('\${1}', spanKeywords[1]).replace('\${2}', spanKeywords[2]);
+    result = splitted.map((word) => {
+      if (word.includes('${')) {
+        const wordIndex = word.slice(2, 3);
+        return `<span class='highlight'>${arr[wordIndex]}</span>`;
+      } else {
+        return word;
+      }
+    });
 
-    return finalStr;
-
-}
+    return result.join(' ');
+  }
 
 const highlighted = highlightKeywords(template, keywords);  
   
