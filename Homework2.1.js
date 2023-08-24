@@ -204,7 +204,6 @@ let t1 = performance.now();
 // bubbleSort(arr1Lenght50);
 // bubbleSort(arr1Lenght100);
 
-
 // bubbleSort(arr2Lenght2);
 // bubbleSort(arr2Lenght5);
 // bubbleSort(arr2Lenght10);
@@ -223,37 +222,55 @@ let t1 = performance.now();
 
 //
 
-mergeSort(arr1Lenght2);
-mergeSort(arr1Lenght5);
-mergeSort(arr1Lenght10);
-mergeSort(arr1Lenght15);
+// mergeSort(arr1Lenght2);
+// mergeSort(arr1Lenght5);
+// mergeSort(arr1Lenght10);
+// mergeSort(arr1Lenght15);
+// mergeSort(arr1Lenght25);
+// mergeSort(arr1Lenght50);
+// mergeSort(arr1Lenght100);
 
-mergeSort(arr2Lenght2);
-mergeSort(arr2Lenght5);
-mergeSort(arr2Lenght10);
-mergeSort(arr2Lenght15);
+// mergeSort(arr2Lenght2);
+// mergeSort(arr2Lenght5);
+// mergeSort(arr2Lenght10);
+// mergeSort(arr2Lenght15);
+// mergeSort(arr2Lenght25);
+// mergeSort(arr2Lenght50);
+// mergeSort(arr2Lenght100);
 
-mergeSort(arr3Lenght2);
-mergeSort(arr3Lenght5);
-mergeSort(arr3Lenght10);
-mergeSort(arr3Lenght15);
+// mergeSort(arr3Lenght2);
+// mergeSort(arr3Lenght5);
+// mergeSort(arr3Lenght10);
+// mergeSort(arr3Lenght15);
+// mergeSort(arr3Lenght25);
+// mergeSort(arr3Lenght50);
+// mergeSort(arr3Lenght100);
 
 //
 
-quickSort(arr1Lenght2);
-quickSort(arr1Lenght5);
-quickSort(arr1Lenght10);
-quickSort(arr1Lenght15);
+// quickSort(arr1Lenght2);
+// quickSort(arr1Lenght5);
+// quickSort(arr1Lenght10);
+// quickSort(arr1Lenght15);
+// quickSort(arr1Lenght25);
+// quickSort(arr1Lenght50);
+// quickSort(arr1Lenght100);
 
-quickSort(arr2Lenght2);
-quickSort(arr2Lenght5);
-quickSort(arr2Lenght10);
-quickSort(arr2Lenght15);
+// quickSort(arr2Lenght2);
+// quickSort(arr2Lenght5);
+// quickSort(arr2Lenght10);
+// quickSort(arr2Lenght15);
+// quickSort(arr2Lenght25);
+// quickSort(arr2Lenght50);
+// quickSort(arr2Lenght100);
 
 quickSort(arr3Lenght2);
 quickSort(arr3Lenght5);
 quickSort(arr3Lenght10);
 quickSort(arr3Lenght15);
+quickSort(arr3Lenght25);
+quickSort(arr3Lenght50);
+quickSort(arr3Lenght100);
 
 let t2 = performance.now();
 console.log(`Time Elapsed: ${t2-t1} ms`);
@@ -262,13 +279,13 @@ console.log(`Time Elapsed: ${t2-t1} ms`);
 
 Array Length | BubbleSort Time | Merge Sort Time | QuickSort Time
 ---------------------------------------------------------------
-2            | 0 ms            | 0.004 ms        | 0.003 ms
-5            | 0 ms            | 0.020 ms        | 0.008 ms
-10           | 0.100 ms        | 0.100 ms        | 0.015 ms
-15           | 0.100 ms        | 0.100 ms        | 0.015 ms
-25           | 0.100 ms        | 0.100 ms        | 0.015 ms
-50           | 0.200 ms        | 0.100 ms        | 0.015 ms
-100          | 0.500 ms        | 0.100 ms        | 0.015 ms
+2            | 0 ms            | 0 ms            | 0 ms
+5            | 0 ms            | 0 ms            | 0 ms
+10           | 0.100 ms        | 0.100 ms        | 0.100 ms
+15           | 0.100 ms        | 0.100 ms        | 0.100 ms
+25           | 0.100 ms        | 0.100 ms        | 0.200 ms
+50           | 0.200 ms        | 0.300 ms        | 0.300 ms
+100          | 0.500 ms        | 0.300 ms        | 0.300 ms
 
 */
 
