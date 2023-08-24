@@ -47,7 +47,6 @@ Array Length | QuickSort Time | BubbleSort Time | Merge Sort Time
 Analyze and explain why QuickSort and Merge Sort are generally faster than BubbleSort, considering the time complexity of all three algorithms.
 */
 
-arr = [11,8,1,15,2,3,12,4,5,6,7,13,9,10,14];
 
 // BubbleSort
 
@@ -55,8 +54,8 @@ function bubbleSort(arr){
     for (let i = arr.length; i > 0; i--) {
         for (let j = 0; j < i - 1; j++) {
        // console.log(arr, arr[j], arr[j+1]);
-        if(arr[j] > arr[j+1]){
-          var temp = arr[j];
+        if(arr[j] > arr[j+1]){                   // (arr[j] < arr[j+1]) - descending order
+          let temp = arr[j];
           arr[j] = arr[j+1];
           arr[j+1] = temp;         
         }
@@ -64,8 +63,6 @@ function bubbleSort(arr){
     }
     return arr;
   }
-
-console.log('bubble sort', bubbleSort(arr)); // 0.139 seconds
 
 
 // MergeSort
@@ -102,8 +99,6 @@ function mergeSort(arr){
   return merge(left, right);
 }
 
-console.log('mergeSort', mergeSort(arr)); // 
-
 
 // QuickSort
 
@@ -138,5 +133,147 @@ function quickSort(arr, left = 0, right = arr.length -1){
      return arr;
 } 
 
+// Arrays
 
-console.log('quickSort', quickSort(arr)); // 
+const num = 100;
+const arr = Array.from({length: num}, (_, index) => index + 1);
+
+// console.log(arr);
+
+
+// Sorted Array
+
+let arr1Lenght2 = [1,  2];
+
+let arr1Lenght5 = [1,  2,  3,  4,  5];
+
+let arr1Lenght10 = [1,  2,  3,  4,  5,  6,  7,  8,  9, 10];
+
+let arr1Lenght15 = [1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15];
+
+let arr1Lenght25 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+
+let arr1Lenght50 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
+
+let arr1Lenght100 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100];
+
+// Sorted Backward Array
+
+let arr2Lenght2 = [15, 14];
+
+let arr2Lenght5 = [15, 14, 13, 12, 11];
+
+let arr2Lenght10 = [15, 14, 13, 12, 11, 10, 9, 8, 7, 6];
+
+let arr2Lenght15 = [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+let arr2Lenght25 = [25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+let arr2Lenght50 = [50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+let arr2Lenght100 = [100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+// Random Array
+
+let arr3Lenght2 = arr1Lenght2.sort(() => Math.random() - 0.5);
+
+let arr3Lenght5 = arr1Lenght5.sort(() => Math.random() - 0.5);
+
+let arr3Lenght10 = arr1Lenght10.sort(() => Math.random() - 0.5);
+
+let arr3Lenght15 = arr1Lenght15.sort(() => Math.random() - 0.5);
+
+let arr3Lenght25 = arr1Lenght25.sort(() => Math.random() - 0.5);
+
+let arr3Lenght50 = arr1Lenght50.sort(() => Math.random() - 0.5);
+
+let arr3Lenght100 = arr1Lenght100.sort(() => Math.random() - 0.5);
+
+// console.log(arr3Lenght15);
+
+
+// Measure the execution time
+
+let t1 = performance.now();
+
+// bubbleSort(arr1Lenght2);
+// bubbleSort(arr1Lenght5);
+// bubbleSort(arr1Lenght10);
+// bubbleSort(arr1Lenght15);
+// bubbleSort(arr1Lenght25);
+// bubbleSort(arr1Lenght50);
+// bubbleSort(arr1Lenght100);
+
+
+// bubbleSort(arr2Lenght2);
+// bubbleSort(arr2Lenght5);
+// bubbleSort(arr2Lenght10);
+// bubbleSort(arr2Lenght15);
+// bubbleSort(arr2Lenght25);
+// bubbleSort(arr2Lenght50);
+// bubbleSort(arr2Lenght100);
+
+// bubbleSort(arr3Lenght2);
+// bubbleSort(arr3Lenght5);
+// bubbleSort(arr3Lenght10);
+// bubbleSort(arr3Lenght15);
+// bubbleSort(arr3Lenght25);
+// bubbleSort(arr3Lenght50);
+// bubbleSort(arr3Lenght100);
+
+//
+
+mergeSort(arr1Lenght2);
+mergeSort(arr1Lenght5);
+mergeSort(arr1Lenght10);
+mergeSort(arr1Lenght15);
+
+mergeSort(arr2Lenght2);
+mergeSort(arr2Lenght5);
+mergeSort(arr2Lenght10);
+mergeSort(arr2Lenght15);
+
+mergeSort(arr3Lenght2);
+mergeSort(arr3Lenght5);
+mergeSort(arr3Lenght10);
+mergeSort(arr3Lenght15);
+
+//
+
+quickSort(arr1Lenght2);
+quickSort(arr1Lenght5);
+quickSort(arr1Lenght10);
+quickSort(arr1Lenght15);
+
+quickSort(arr2Lenght2);
+quickSort(arr2Lenght5);
+quickSort(arr2Lenght10);
+quickSort(arr2Lenght15);
+
+quickSort(arr3Lenght2);
+quickSort(arr3Lenght5);
+quickSort(arr3Lenght10);
+quickSort(arr3Lenght15);
+
+let t2 = performance.now();
+console.log(`Time Elapsed: ${t2-t1} ms`);
+
+/* Report
+
+Array Length | BubbleSort Time | Merge Sort Time | QuickSort Time
+---------------------------------------------------------------
+2            | 0 ms            | 0.004 ms        | 0.003 ms
+5            | 0 ms            | 0.020 ms        | 0.008 ms
+10           | 0.100 ms        | 0.100 ms        | 0.015 ms
+15           | 0.100 ms        | 0.100 ms        | 0.015 ms
+25           | 0.100 ms        | 0.100 ms        | 0.015 ms
+50           | 0.200 ms        | 0.100 ms        | 0.015 ms
+100          | 0.500 ms        | 0.100 ms        | 0.015 ms
+
+*/
+
+/* Bonus
+
+Analyze and explain why QuickSort and Merge Sort are generally faster than BubbleSort, considering the time complexity of all three algorithms.
+
+*/
