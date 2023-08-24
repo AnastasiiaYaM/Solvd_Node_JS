@@ -47,7 +47,9 @@ Array Length | QuickSort Time | BubbleSort Time | Merge Sort Time
 Analyze and explain why QuickSort and Merge Sort are generally faster than BubbleSort, considering the time complexity of all three algorithms.
 */
 
-arr = [11,8,1,15,2,3,12.4,5,6,7,13,9,10,14];
+arr = [11,8,1,15,2,3,12,4,5,6,7,13,9,10,14];
+
+// BubbleSort
 
 function bubbleSort(arr){
     for (let i = arr.length; i > 0; i--) {
@@ -64,3 +66,42 @@ function bubbleSort(arr){
   }
 
 console.log('bubble sort', bubbleSort(arr)); // 0.139 seconds
+
+
+// MergeSort
+
+function merge(arr1, arr2){
+  let results = [];
+  let i = 0;
+  let j = 0;
+  while(i < arr1.length && j < arr2.length){
+      if(arr2[j] > arr1[i]){
+          results.push(arr1[i]);
+          i++;
+      } else {
+          results.push(arr2[j])
+          j++;
+      }
+  }
+  while(i < arr1.length) {
+      results.push(arr1[i])
+      i++;
+  }
+  while(j < arr2.length) {
+      results.push(arr2[j])
+      j++;
+  }
+  return results;
+}
+
+function mergeSort(arr){
+  if(arr.length <= 1) return arr;
+  let mid = Math.floor(arr.length/2);
+  let left = mergeSort(arr.slice(0,mid));
+  let right = mergeSort(arr.slice(mid));
+  return merge(left, right);
+}
+
+console.log('mergeSort', mergeSort(arr)); // 0.139 seconds
+
+
