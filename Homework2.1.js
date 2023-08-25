@@ -264,12 +264,12 @@ let t1 = performance.now();
 // quickSort(arr2Lenght50);
 // quickSort(arr2Lenght100);
 
-quickSort(arr3Lenght2);
-quickSort(arr3Lenght5);
-quickSort(arr3Lenght10);
-quickSort(arr3Lenght15);
-quickSort(arr3Lenght25);
-quickSort(arr3Lenght50);
+// quickSort(arr3Lenght2);
+// quickSort(arr3Lenght5);
+// quickSort(arr3Lenght10);
+// quickSort(arr3Lenght15);
+// quickSort(arr3Lenght25);
+// quickSort(arr3Lenght50);
 quickSort(arr3Lenght100);
 
 let t2 = performance.now();
@@ -277,7 +277,7 @@ console.log(`Time Elapsed: ${t2-t1} ms`);
 
 /* Report
 
-Array Length | BubbleSort Time | Merge Sort Time | QuickSort Time
+Array Length | BubbleSort Time | MergeSort Time | QuickSort Time
 ---------------------------------------------------------------
 2            | 0 ms            | 0 ms            | 0 ms
 5            | 0 ms            | 0 ms            | 0 ms
@@ -292,5 +292,19 @@ Array Length | BubbleSort Time | Merge Sort Time | QuickSort Time
 /* Bonus
 
 Analyze and explain why QuickSort and Merge Sort are generally faster than BubbleSort, considering the time complexity of all three algorithms.
+
+
+Bubble sort uses two cycles: inner and outer. So, the inner loop unavoidable performs O(n) comparisons. In the worst case, the outer loop runs O(n) times. As a result, the worst-case time complexity of bubble sort is O(n x n) = O(n x n) = O (n squared). Bubble sort has constant space complexity.
+
+Array splitting, like in Merge Sort, gives us O(log n) decompositions. And O (n) comparisons per decomposition. Merge Sort uses extra space. 
+
+The worst case in Quick Sort is a Sorted Array (if pivot is the 1st item), because we should provide O (n) decompositions and O (n) comparisons per decomposition.
+
+
+Algorithm   |  Worst-case running time | Best-case running time | Average-case running time | Space complexity
+--------------------------------------------------------------------------------------------------------
+Bubble Sort | O (n squared)            | O (n)                  | O (n squared)             | O (1)
+Merge Sort  | O (n lg n)               | O (n lg n)             | O (n lg n)                | O (n)
+Quick Sort  | O (n squared)            | O (n lg n)             | O (n lg n)                | O (lg n)
 
 */
