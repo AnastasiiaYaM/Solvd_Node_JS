@@ -26,14 +26,22 @@ class AsyncOperationManager {
     simulateAsyncOperation(delay) {
       setTimeout(() => {
         console.log(`Async operation completed after ${delay} ms`);
+        process.nextTick(() => {
+          console.log("this message shows after the setTimeout"); 
+        });
       }, delay);
     }
-  
+
     scheduleImmediate() {
       setImmediate(() => {
         console.log("Immediate task executed");
+        process.nextTick(() => {
+          console.log("this message shows after the setImmediate"); 
+        });
       });
+
     }
+      // Implement process.nextTick scheduling and event loop interactions
   }
 
   const manager = new AsyncOperationManager();
@@ -47,16 +55,22 @@ class AsyncOperationManager {
 
 1. simulateAsyncOperation(200) method executed;
     1.1. setTimeout() is being executed in the Timers phase of Event Loop;
-    1.2. When 200 ms up (right away, or if to be more precise then it would be better to say “as soon as possible”), the console.log(`Async operation completed after ${delay} ms`) is moved to Macro-Task Queue;
+    1.2. When 200 ms up (right away, or if to be more precise then it would be better to say “as soon as possible”), the console.log(`Async operation completed after ${delay} ms`) is moved to Macro-Task Queue; 
+    1.3. When this Macro Task will be done - log console.log(`Async operation completed after ${delay} ms`), process.nextTick() is being called and console.log("this message shows after the setTimeout") is moved to Micro-Task queue;
 2. process.nextTick() is being called and console.log("Microtask executed immediately") method is moved to Micro-Task queue;
 3. scheduleImmediate() method executed;
     3.1. setImmediate() is being executed in the Check phase of Event Loop;
     3.2. the console.log("Immediate task executed") method is moved to Macro-Task Queue immediately;
-4. Checking if there is something in the Micro-Queue and executes console.log("Microtask executed immediately"); 
+    3.3. When this Macro Task will be done - log console.log("Immediate task executed"), process.nextTick() is being called and console.log("this message shows after the setImmediate") method is moved to Micro-Task queue;
+4. Checking if there is something in the Micro-Queue, and executes console.log("Microtask executed immediately"); 
 5. Checking if there is something in the Micro-Queue, now it is empty;
-6. Checking if there is something in the Macro-Queue and executes console.log("Immediate task executed");
-7. Checking if there is something in the Macro-Queue and executes console.log(`Async operation completed after ${delay} ms`).
-8. Checking if there is something in the Macro-Queue, now it is empty.
+6. Checking if there is something in the Macro-Queue, and executes console.log("Immediate task executed");
+7. Checking if there is something in the Micro-Queue, and executes console.log("this message shows after the setImmediate"); 
+8. Checking if there is something in the Micro-Queue, now it is empty;
+9. Checking if there is something in the Macro-Queue, and executes console.log(`Async operation completed after ${delay} ms`);
+10. Checking if there is something in the Micro-Queue, and executes console.log("this message shows after the setTimeout"); 
+11. Checking if there is something in the Micro-Queue, now it is empty;
+12. Checking if there is something in the Macro-Queue, now it is empty;
 */
 
 
@@ -88,7 +102,8 @@ const bonusManager = new AsyncOperationManager();
 5. Promise.resolve().then() is being called, console.log("Promise") and process.nextTick(() => console.log("Promise next tick")) methods are moved to Micro-Task queue - promise Queue;
 6. simulateAsyncOperation(200) method executed;
     6.1. setTimeout() is being executed in the Timers phase of Event Loop;
-    6.2. When 200 ms up, the console.log(`Async operation completed after ${delay} ms`) is moved to Macro-Task Queue;
+    6.2. When 200 ms up (right away, or if to be more precise then it would be better to say “as soon as possible”), the console.log(`Async operation completed after ${delay} ms`) is moved to Macro-Task Queue; 
+    6.3. When this Macro Task will be done - log console.log(`Async operation completed after ${delay} ms`), process.nextTick() is being called and console.log("this message shows after the setTimeout") is moved to Micro-Task queue;
 7. setImmediate() is being executed in the Check phase of Event Loop;
 8. console.log("SetImmediate 2") method is moved to Macro-Task Queue immediately;
 9. process.nextTick() is being called and console.log("Microtask 1") method is moved to Micro-Task queue - nextTick Queue;
@@ -100,6 +115,7 @@ const bonusManager = new AsyncOperationManager();
 15. scheduleImmediate() method executed;
     15.1. setImmediate() is being executed in the Check phase of Event Loop;
     15.2. the console.log("Immediate task executed") method is moved to Macro-Task Queue immediately;
+    15.3. When this Macro Task will be done - log console.log("Immediate task executed"), process.nextTick() is being called and console.log("this message shows after the setImmediate") method is moved to Micro-Task queue;
 16. Checking if there is something in the Micro-Queue - nextTick Queue, and executes console.log("Microtask 1"); 
 17. Checking if there is something in the Micro-Queue - nextTick Queue, and executes console.log("Microtask 2"); 
 18. Checking if there is something in the Micro-Queue - nextTick Queue, and now it is empty; 
@@ -107,13 +123,22 @@ const bonusManager = new AsyncOperationManager();
 20. Checking if there is something in the Micro-Queue, and executes console.log("Promise next tick");
 21. Checking if there is something in the Micro-Queue, now it is empty;
 22. Checking if there is something in the Macro-Queue, and executes console.log("SetImmediate 1").
-23. Checking if there is something in the Macro-Queue, and executes console.log("SetImmediate 2").
-24. Checking if there is something in the Macro-Queue, and executes console.log("SetImmediate 3").
-25. Checking if there is something in the Macro-Queue, and executes console.log("Immediate task executed").
-25. Checking if there is something in the Macro-Queue, and executes console.log("SetTimeout 20 ms").
-26. Checking if there is something in the Macro-Queue, and executes console.log("SetTimeout 100 ms").
-27. Checking if there is something in the Macro-Queue, and executes console.log(`Async operation completed after ${delay} ms`).
-28. Checking if there is something in the Macro-Queue, now it is empty;
+23. Checking if there is something in the Micro-Queue, now it is empty;
+24. Checking if there is something in the Macro-Queue, and executes console.log("SetImmediate 2").
+25. Checking if there is something in the Micro-Queue, now it is empty;
+26. Checking if there is something in the Macro-Queue, and executes console.log("SetImmediate 3").
+27. Checking if there is something in the Micro-Queue, now it is empty;
+28. Checking if there is something in the Macro-Queue, and executes console.log("Immediate task executed");
+29. Checking if there is something in the Micro-Queue, and executes console.log("this message shows after the setImmediate"); 
+30. Checking if there is something in the Micro-Queue, now it is empty;
+31. Checking if there is something in the Macro-Queue, and executes console.log("SetTimeout 20 ms").
+32. Checking if there is something in the Micro-Queue, now it is empty;
+33. Checking if there is something in the Macro-Queue, and executes console.log("SetTimeout 100 ms").
+34. Checking if there is something in the Micro-Queue, now it is empty;
+35. Checking if there is something in the Macro-Queue, and executes console.log(`Async operation completed after ${delay} ms`).
+36. Checking if there is something in the Micro-Queue, and executes console.log("this message shows after the setTimeout"); 
+37. Checking if there is something in the Micro-Queue, now it is empty;
+38. Checking if there is something in the Macro-Queue, now it is empty;
 */
 
 // NB! nextTick queue gets priority over the promise queue (it’s how the Node.js runtime works)
