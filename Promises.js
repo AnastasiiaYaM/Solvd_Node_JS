@@ -67,6 +67,14 @@ const promises = [
     Promise.resolve(3)
   ];
   
+  function promiseAllSettled(promises) {
+    let wrappedPromises = promises.map(p => Promise.resolve(p)
+        .then(
+            val => ({ status: 'fulfilled', value: val }),
+            err => ({ status: 'rejected', reason: err })));
+    return Promise.all(wrappedPromises);
+}
+
   promiseAllSettled(promises)
     .then(results => {
       console.log("All promises settled:", results);
