@@ -114,6 +114,16 @@ function asyncFunction1() {
   
   const functionsArray = [asyncFunction1, asyncFunction2, asyncFunction3];
   
+  function chainPromises(functionsArray) {
+    
+    const seed = Promise.resolve(null); 
+
+    return functionsArray.reduce(function(a,b){
+        return a.then(b);
+    }, seed);
+
+  }    
+
   chainPromises(functionsArray)
     .then(result => {
       console.log("Chained promise result:", result);
