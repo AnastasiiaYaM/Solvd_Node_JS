@@ -21,21 +21,21 @@ const promises = [
   ];
 
   function promiseAll(promises) {
-    let results = [];
-    let completedPromises = 0;
     return new Promise(function (resolve, reject) {
-      promises.forEach(function(promise, index) {
-        promise.then(function (value) {
-          results[index] = value;
-          completedPromises += 1;
-          if(completedPromises === promises.length) {
-            resolve(results);
+      let completedPromises = [];
+      promises.map((promise) => {
+        return promise
+        .then((res) => {
+          completedPromises.push(res)
+          if(completedPromises.length === promises.length) {
+            resolve(completedPromises)
           }
-        }).catch(function (error) {
-          reject(error);
-        });
-      });  
-    });
+        })
+        .catch((err) => {
+          reject(err)
+        })
+      })
+    })
   }
 
   promiseAll(promises)
