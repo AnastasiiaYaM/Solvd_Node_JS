@@ -116,7 +116,7 @@ function asyncFunction1() {
   
   function chainPromises(functionsArray) {
     
-    const seed = Promise.resolve(null); 
+    const seed = Promise.resolve(); 
 
     return functionsArray.reduce(function(a,b){
         return a.then(b);
