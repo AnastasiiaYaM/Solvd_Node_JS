@@ -107,7 +107,7 @@ class Cart {
     return  this.cartItems.filter(item=> item.title == title)[0] != undefined;
   }
   removeItem(cartItem) {
-    this.cartItems = [...this.cartItems].filter(item=>item.cartItem != cartItem );
+    this.cartItems.pop(cartItem);
     console.log(`You removed the book "${cartItem.title}", author ${cartItem.author} from a shopping cart`);
   }
   totalPrice() {
@@ -157,8 +157,7 @@ console.log(user1.name);
 console.log(user1.email);  // Encapsulation. All user's properties are private ('name' also), so output will be  'undefined'
 console.log(user2.userId);  // Encapsulation. All user's properties are private ('name' also), so output will be  'undefined'
 
-myCart.removeItem(book1);
-myCart.removeItem(book2);
+myCart.removeItem(book3);
 
 myCart.totalPrice();
 
