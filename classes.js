@@ -54,20 +54,19 @@ class Book {
   }
 }
 
-class User {
-  #name;                                 // Encapsulation
-  #email;
-  #userId;
+class User {                                
+  #email;                             // Encapsulation
+  #userId;                            // Encapsulation
   constructor(name, email, userId) {
-    this.#name = name;
+    this.name = name;
     this.#email = email;
     this.#userId = userId;
   }
 }
 
-class CartItem extends Book{      // Inheritance
+class CartItem extends Book{                                                // Inheritance
   constructor(genre, title, author, isbn, price, availability, quantity) {
-    super(title, author, isbn, price, availability, quantity);
+    super(title, author, isbn, price, availability, quantity);              // Inheritance
     this.genre = genre;
     this.updateQuantity.bind(this)
   }
@@ -116,21 +115,23 @@ class Cart {
     console.log(`Your total price is ${this.price}`)
   }
   showcart() {
-    console.log('In the cart now: ', this.cartItems);
+    console.log('books: ', this.cartItems);
  }
 }
 
-class Order extends Cart{
-  constructor(user, cartItems, price) {
-    super(cartItems, price);
-    this.user = user;
+class Order {
+  constructor(user, books, purchase) {
+      this.user = user;
+      this.books = books;
+      this.purchase = purchase;
   }
-
   finalOrder() {
-    
-    console.log(`${this.user.name} wants to purchase ${super.cartItems}. The total price is ${super.price}`);  
+    console.log(`${this.user.name} wants to purchase books: `);
+    Object.values(this.books.cartItems).forEach((value) => { console.log(value.title)});
+    console.log(`The total price is ${this.purchase.price}`);
   }
 }
+
 
 const book1 = new CartItem('non-fiction', 'Never Enough', 'Jennifer Breheny Wallace', 0-321-54325-4, 29, true);
 const book2 = new CartItem('fiction', 'Trust', 'Hernan Diaz', 0-456-54325-4, 32, true);
@@ -142,7 +143,7 @@ const user2 = new User('Dmytro', 'dmytro@gmail.com', 124);
 
 const myCart = new Cart(user1);
 
-const myOrder = new Order(user1, myCart.cartItems, myCart.price);
+const myOrder = new Order(user1, myCart, myCart);
 
 myCart.addItem(book1);
 myCart.addItem(book2);
@@ -152,6 +153,10 @@ myCart.addItem(book4);
 book1.bookType();   // Polymorphism
 book2.bookType();   // Polymorphism
 
+console.log(user1.name);
+console.log(user1.email);  // Encapsulation. All user's properties are private ('name' also), so output will be  'undefined'
+console.log(user2.userId);  // Encapsulation. All user's properties are private ('name' also), so output will be  'undefined'
+
 myCart.removeItem(book1);
 myCart.removeItem(book2);
 
@@ -160,5 +165,5 @@ myCart.totalPrice();
 myCart.cartItems;
 myCart.price;
 
-myOrder.finalOrder();   // Encapsulation. All user's properties are private ('name' also), so output will be  'undefined'.
+myOrder.finalOrder();
 
