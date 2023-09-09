@@ -41,41 +41,44 @@ Submit your JavaScript program along with detailed documentation and comments th
 */
 
 class Book {
-  constructor(title, author, isbn, price, availability, quantity) {
+  constructor(title, author, isbn, price, availability) {
     this.title = title;
     this.author = author;
     this.isbn = isbn;
     this.price = price;
     this.availability = availability;
-    this.quantity =  quantity;
   }
   bookType() {
-    console.log("It doesn't matter");  
+    console.log("It doesn't matter");                             // Polymorphism
+  }
+}
+
+class FictionBook extends Book{                                   // Inheritance
+  constructor(title, author, isbn, price, availability) {
+    super(title, author, isbn, price, availability);              // Inheritance
+  }
+  bookType() {
+    console.log(`A fiction book`);                                // Polymorphism
+  }
+}
+
+class NonFictionBook extends Book{                                // Inheritance
+  constructor(title, author, isbn, price, availability) {
+    super(title, author, isbn, price, availability);              // Inheritance
+  }
+  bookType() {
+    console.log(`A non-fiction book`);                            // Polymorphism
   }
 }
 
 class User {                                
-  #email;                             // Encapsulation
+  #email;                                                        // Encapsulation
   constructor(name, email) {
     this.name = name;
     this.#email = email;
   }
   generateRandomUserId() {
     return  Math.random().toString(36).substring(2, 10);
-  }
-}
-
-class CartItem extends Book{                                                // Inheritance
-  constructor(genre, title, author, isbn, price, availability, quantity) {
-    super(title, author, isbn, price, availability, quantity);              // Inheritance
-    this.genre = genre;
-    this.updateQuantity.bind(this)
-  }
-  bookType() {
-    console.log(`A ${this.genre} book`);   // Polymorphism
-  }
-  updateQuantity(quantity) { 
-      this.quantity += quantity;
   }
 }
 
@@ -113,7 +116,7 @@ class Cart {
   }
   totalPrice() {
     this.price = this.cartItems.reduce((acc, curr) => acc + curr.price, 0);
-    console.log(`Your total price is ${this.price}`)
+    console.log(`Your total price is ${this.price}  euros`)
   }
   showcart() {
     console.log('books: ', this.cartItems);
@@ -125,19 +128,20 @@ class Order {
       this.user = user;
       this.books = books;
       this.purchase = purchase;
+      this.finalOrder.bind(this);
   }
   finalOrder() {
     console.log(`${this.user.name} wants to purchase books: `);
     Object.values(this.books.cartItems).forEach((value) => { console.log(value.title)});
-    console.log(`The total price is ${this.purchase.price}`);
+    console.log(`The total price is ${this.purchase.price} euros`);
   }
 }
 
 
-const book1 = new CartItem('non-fiction', 'Never Enough', 'Jennifer Breheny Wallace', 0-321-54325-4, 29, true);
-const book2 = new CartItem('fiction', 'Trust', 'Hernan Diaz', 0-456-54325-4, 32, true);
-const book3 = new CartItem('non-fiction', 'The Snakehead','Patrick Radden Keefe', 0-768-54565-2, 30, true);
-const book4 = new CartItem('non-fiction', 'The Psychology of Stupidity', 'Jean-Francois Marmion', 0-708-12567-2, 30, false);
+const book1 = new NonFictionBook('Never Enough', 'Jennifer Breheny Wallace', 0-321-54325-4, 29, true);
+const book2 = new FictionBook('Trust', 'Hernan Diaz', 0-456-54325-4, 32, true);
+const book3 = new NonFictionBook('The Snakehead','Patrick Radden Keefe', 0-768-54565-2, 30, true);
+const book4 = new NonFictionBook('The Psychology of Stupidity', 'Jean-Francois Marmion', 0-708-12567-2, 30, false);
 
 const user1 = new User('Anna', 'ann@gmail.com');
 const user2 = new User('Dmytro', 'dmytro@gmail.com');
