@@ -56,11 +56,12 @@ class Book {
 
 class User {                                
   #email;                             // Encapsulation
-  #userId;                            // Encapsulation
-  constructor(name, email, userId) {
+  constructor(name, email) {
     this.name = name;
     this.#email = email;
-    this.#userId = userId;
+  }
+  generateRandomUserId() {
+    return  Math.random().toString(36).substring(2, 10);
   }
 }
 
@@ -138,8 +139,8 @@ const book2 = new CartItem('fiction', 'Trust', 'Hernan Diaz', 0-456-54325-4, 32,
 const book3 = new CartItem('non-fiction', 'The Snakehead','Patrick Radden Keefe', 0-768-54565-2, 30, true);
 const book4 = new CartItem('non-fiction', 'The Psychology of Stupidity', 'Jean-Francois Marmion', 0-708-12567-2, 30, false);
 
-const user1 = new User('Anna', 'ann@gmail.com', 123);
-const user2 = new User('Dmytro', 'dmytro@gmail.com', 124);
+const user1 = new User('Anna', 'ann@gmail.com');
+const user2 = new User('Dmytro', 'dmytro@gmail.com');
 
 const myCart = new Cart(user1);
 
@@ -154,8 +155,8 @@ book1.bookType();   // Polymorphism
 book2.bookType();   // Polymorphism
 
 console.log(user1.name);
-console.log(user1.email);  // Encapsulation. All user's properties are private ('name' also), so output will be  'undefined'
-console.log(user2.userId);  // Encapsulation. All user's properties are private ('name' also), so output will be  'undefined'
+console.log(user1.email);  // Encapsulation. "email" property is private, so output will be  'undefined'
+console.log(user2.generateRandomUserId());  
 
 myCart.removeItem(book3);
 
