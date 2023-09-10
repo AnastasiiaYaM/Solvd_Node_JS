@@ -87,11 +87,6 @@ class Cart {
     this.user = user;
     this.cartItems = [];
     this.price = 0;
-    this.addItem.bind(this);
-    this.removeItem.bind(this);
-    this.showcart.bind(this);
-    this.checkIfItemExists.bind(this);
-    this.totalPrice.bind(this);
   }
   addItem(cartItem) {
     if (cartItem.availability) {
@@ -128,7 +123,6 @@ class Order {
       this.user = user;
       this.books = books;
       this.purchase = purchase;
-      this.finalOrder.bind(this);
   }
   finalOrder() {
     console.log(`${this.user.name} wants to purchase books: `);
