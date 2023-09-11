@@ -82,9 +82,10 @@ console.log('The top element of the stack ', myStack.peek());
 console.log("Deleting from the stack");
 myStack.pop(2);
 
+console.log("Stack after adding items: ");
 console.log(myStack);
 
-console.log('The top element of the stack ', myStack.peek());
+console.log('The top element of the stack: ', myStack.peek());
 
 console.log("Deleting from the stack");
 myStack.pop(3);
@@ -98,9 +99,49 @@ myStack.pop(4);
 
   
   class Queue {                  // FIFO (First In First Out) data structure type
-    // Implement methods for enqueue, dequeue, peek...
+    constructor() {
+      this.data = {};
+      this.headIndex = 0;
+      this.tailIndex = 0;
+    }
+    enqueue(el) {
+      this.data[this.tailIndex] = el;
+      this.tailIndex++;
+    }
+    dequeue() {
+      let removedEl = this.data[this.headIndex];
+      delete this.data[this.headIndex];
+      this.headIndex++;
+      return removedEl;
+    }
+    peek() {
+      let peekEl = this.data[this.headIndex];
+      return peekEl;
+    }
   }
   
+  console.log("Creating Queue");
+  let myQueue = new Queue();
+
+  console.log("Adding 1, 2, 3 to the queue");
+  myQueue.enqueue(1);
+  myQueue.enqueue(2);
+  myQueue.enqueue(3);
+    
+  console.log("Queue after adding elements:");
+  console.log(myQueue);
+  
+  console.log("1st removing from the queue");
+  myQueue.dequeue();
+  
+  console.log("Queue after removing an element:");
+  console.log(myQueue);
+  
+  console.log("The front element of the queue is");
+  console.log(myQueue.peek());
+  
+  //
+
   class BinaryTree {
     // Implement methods for inserting nodes, searching, traversing...
   }
