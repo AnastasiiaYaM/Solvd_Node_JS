@@ -41,11 +41,68 @@ class Node {
   }
 }
 
-class Stack {
-    // Implement methods for push, pop, peek...
+class Stack {         // LIFO (Last In First Out) data structure type
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.size = 0;
   }
+  push (value){
+    let node = new Node(value);
+    if (!this.first){
+        this.first = node;
+        this.last = node;
+    } else {
+        let temp = this.first;
+        this.first = node;
+        this.first.next = temp;
+    }
+    return ++this.size;
+  }
+  pop (){
+    if (!this.first) return null;
+    let temp = this.first;
+    if (this.first === this.last){
+        this.last = null;
+    }
+    this.first = this.first.next;
+    this.size--;
+    return temp.value;
+  }
+  peek() {                          // peek(): Get the top element of the stack 
+    let node = new Node();                    
+    return node[this.first-1];
+  }
+}
+
+console.log("Creating Stack");
+let myStack = new Stack();
+
+console.log("Adding 1, 2, 3 to the stack");
+myStack.push(1);
+myStack.push(2);
+myStack.push(3);
+console.log(myStack);
+
+console.log('The top element of the stack');
+myStack.peek();
+
+console.log("Deleting from the stack");
+myStack.pop(1);
+console.log(myStack);
+console.log('The top element of the stack');
+myStack.peek();
+console.log("Deleting from the stack");
+myStack.pop(2);
+console.log(myStack);
+console.log('The top element of the stack');
+myStack.peek();
+console.log("Deleting from the stack");
+myStack.pop(3);
+console.log(myStack);
+
   
-  class Queue {
+  class Queue {                  // FIFO (First In First Out) data structure type
     // Implement methods for enqueue, dequeue, peek...
   }
   
@@ -130,6 +187,7 @@ class LinkedList {
   }
 }
 
+console.log("Creating Linked List");
 let myList = new LinkedList();
 
 myList.insert(0, 55);
@@ -152,15 +210,13 @@ function detectCycle (linkedList) {   // Floyd's Cycle Detection Algorithm (Tort
     slowPointer = slowPointer.next;
     fastPointer = fastPointer.next.next;
     if (slowPointer === fastPointer) {  
-      console.log('This linked list contains a cycle.')
       return true;
     }
   }
-  console.log('This linked list does not contain a cycle.');
   return false;
 }
 
-detectCycle(myList);
+console.log('detectCycle(myList) function returns', detectCycle(myList));
   
   // Implement Min/Max Stack, Binary Search Tree, Graph Algorithms...
   // Demonstrate usage and provide documentation...
