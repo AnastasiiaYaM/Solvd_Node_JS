@@ -43,35 +43,20 @@ class Node {
 
 class Stack {         // LIFO (Last In First Out) data structure type
   constructor() {
-    this.first = null;
-    this.last = null;
-    this.size = 0;
+    this.data = [];
   }
   push (value){
-    let node = new Node(value);
-    if (!this.first){
-        this.first = node;
-        this.last = node;
-    } else {
-        let temp = this.first;
-        this.first = node;
-        this.first.next = temp;
-    }
-    return ++this.size;
+    this.data.push(value);
   }
   pop (){
-    if (!this.first) return null;
-    let temp = this.first;
-    if (this.first === this.last){
-        this.last = null;
+    if (this.data.length === 0) {
+      console.log("Underflow");
+    } else {
+      return this.data.pop();
     }
-    this.first = this.first.next;
-    this.size--;
-    return temp.value;
   }
   peek() {                          // peek(): Get the top element of the stack 
-    let node = new Node();                    
-    return node[this.first-1];
+    return this.data[this.data.length - 1];
   }
 }
 
@@ -82,24 +67,34 @@ console.log("Adding 1, 2, 3 to the stack");
 myStack.push(1);
 myStack.push(2);
 myStack.push(3);
+
 console.log(myStack);
 
-console.log('The top element of the stack');
-myStack.peek();
+console.log('The top element of the stack ', myStack.peek());
 
 console.log("Deleting from the stack");
 myStack.pop(1);
+
 console.log(myStack);
-console.log('The top element of the stack');
-myStack.peek();
+
+console.log('The top element of the stack ', myStack.peek());
+
 console.log("Deleting from the stack");
 myStack.pop(2);
+
 console.log(myStack);
-console.log('The top element of the stack');
-myStack.peek();
+
+console.log('The top element of the stack ', myStack.peek());
+
 console.log("Deleting from the stack");
 myStack.pop(3);
+
 console.log(myStack);
+
+console.log('The top element of the stack ', myStack.peek());
+
+console.log("Deleting from the stack");
+myStack.pop(4);
 
   
   class Queue {                  // FIFO (First In First Out) data structure type
@@ -202,6 +197,128 @@ myList.delete(1);
 console.log('My single linked list after 1 deletion looks like: ', myList);
 
 console.log('Single linked list, search ', myList.search(2));
+
+// Min/Max Stack
+
+class MinStack {                                
+  constructor() {
+    this.data = [];
+    this.minEl;             
+  }
+  push(el) {
+    if (this.data.length === 0) {
+        this.minEl = el;
+        this.data.unshift(el);
+        console.log("Number Inserted: ", el);
+        return;
+    }
+    else if (el < this.minEl) {
+        this.data.unshift(2 * el - this.minEl);
+        this.minEl = el;
+    }
+    else {
+        this.data.unshift(el);
+    }
+    console.log("Number Inserted: ", el);
+  }
+  pop() {
+    if (this.data.length === 0) {
+        console.log("Stack is empty ");
+        return;
+    }
+    console.log("Top Most Element Removed: ");
+    let top = this.data[0]; 
+    this.data.shift();
+    if (top < this.minEl) {
+        console.log(this.minEl);
+        this.minEl = (2 * this.minEl) - top;
+    }
+    else {
+        console.log(top);
+    }
+  }
+  getMin() {
+    if (this.data.length === 0){
+        console.log("Stack is empty");
+    } else {
+        console.log("Minimum Element in the stack is: ", this.minEl);
+    }  
+  }  
+};
+
+console.log("Creating New Stack, Min");
+let myMinStack = new MinStack;
+
+myMinStack.push(2);
+myMinStack.push(8);
+myMinStack.getMin();
+myMinStack.push(5);
+myMinStack.push(1);
+myMinStack.getMin();
+myMinStack.pop();
+myMinStack.getMin();
+
+class MaxStack {                                
+  constructor() {
+    this.data = [];
+    this.maxEl;             
+  }
+  push(el) {
+    if (this.data.length === 0) {
+        this.maxEl = el;
+        this.data.push(el);
+        console.log("Number Inserted: ", el);
+        return;
+    }
+    else if (el > this.maxEl) {
+        this.data.push(2 * el - this.maxEl);
+        this.maxEl = el;
+    }
+    else {
+        this.data.push(el);
+    }
+    console.log("Number Inserted: ", el);
+  }
+  pop() {
+    if (this.data.length === 0) {
+        console.log("Stack is empty ");
+        return;
+    }
+    console.log("Top Most Element Removed: ");
+    let top = this.data[this.data-1]; 
+    this.data.pop();
+    if (top > this.maxEl) {
+        console.log(this.maxEl);
+        this.maxEl = (2 * this.maxEl) - top;
+    }
+    else {
+        console.log(top);
+    }
+  }
+  getMax() {
+    if (this.data.length === 0){
+        console.log("Stack is empty");
+    } else {
+        console.log("Maximum Element in the stack is: ", this.maxEl);
+    }  
+  }  
+};
+
+console.log("Creating New Stack, Max");
+
+let myMaxStack = new MaxStack;
+
+myMaxStack.push(2);
+myMaxStack.push(4);
+myMaxStack.getMax();
+myMaxStack.push(5);
+myMaxStack.push(1);
+myMaxStack.getMax();
+myMaxStack.pop();
+myMaxStack.getMax();
+
+
+//Linked List Cycle
 
 function detectCycle (linkedList) {   // Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm)
   let slowPointer = linkedList;       // Tortoise
