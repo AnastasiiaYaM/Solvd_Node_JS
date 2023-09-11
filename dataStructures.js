@@ -137,15 +137,30 @@ myList.insert(1, 44);
 myList.insert(2, 33);
 myList.insert(3, 22);
 
-console.log(myList);
+console.log('My single linked list after 4 insertions looks like: ', myList);
 
 myList.delete(1);
 
-console.log(myList);
+console.log('My single linked list after 1 deletion looks like: ', myList);
 
-myList.search(2);
+console.log('Single linked list, search ', myList.search(2));
 
+function detectCycle (linkedList) {   // Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm)
+  let slowPointer = linkedList;       // Tortoise
+  let fastPointer = linkedList;       // Hare
+  while (fastPointer && fastPointer.next) {
+    slowPointer = slowPointer.next;
+    fastPointer = fastPointer.next.next;
+    if (slowPointer === fastPointer) {  
+      console.log('This linked list contains a cycle.')
+      return true;
+    }
+  }
+  console.log('This linked list does not contain a cycle.');
+  return false;
+}
 
+detectCycle(myList);
   
   // Implement Min/Max Stack, Binary Search Tree, Graph Algorithms...
   // Demonstrate usage and provide documentation...
