@@ -477,6 +477,34 @@ myMaxStack.getMax();
 myMaxStack.pop();
 myMaxStack.getMax();
 
+// Binary Search Tree checking
+
+function isValidBST (root) {   
+  if (!root) {
+      return true;
+  }
+  return dfs(root, -Infinity, Infinity);    // Depth First Search - Pre-order Traversing
+};
+
+const dfs = (node, min, max) => {
+  if (node.val <= min || node.val >= max) {
+      return false;
+  }
+  if (node.left) {
+      if (!dfs(node.left, min, node.val)) {
+          return false;
+      }
+  }
+  if (node.right) {
+      if (!dfs(node.right, node.val, max)) {
+          return false;
+      }
+  }
+  return true;
+}
+
+let valBT = isValidBST(myBinaryTree);
+console.log('is valid BST ', valBT);
 
 //Linked List Cycle
 
