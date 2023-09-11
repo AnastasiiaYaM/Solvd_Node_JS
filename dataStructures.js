@@ -150,60 +150,120 @@ myStack.pop(4);
     insert (value){
       let newNode = new Node(value);
       if (this.root === null) {
-        this.root = newNode;
-      } else {
-        this.insertNode(this.root, newNode);
+          this.root = newNode;
+          return this;
       }
-    }
-    insertNode (node, newNode){
-      if (newNode.data < node.data) {
-          if(node.left === null) {
-            node.left = newNode;
-          } else { 
-            this.insertNode(node.left, newNode);
+      let current = this.root;
+      while (true) {
+          if (value === current.value) {
+            return undefined;
           }
-      } else {
-          if (node.right === null) {
-            node.right = newNode;
+          if (value < current.value) {
+              if (current.left === null) {
+                  current.left = newNode;
+                  return this;
+              } else {
+              current = current.left;
+              }
           } else {
-            this.insertNode(node.right,newNode);
+              if (current.right === null) {
+                  current.right = newNode;
+                  return this;
+              } else {
+              current = current.right;
+              }
           }
       }
     }
-    search (node, data) {
-        if (node === null) {
-            return null;
-        } else if (data < node.data) {
-            return this.search(node.left, data);
-        }
-        else if (data > node.data) {
-            return this.search(node.right, data);
-        } else {
-        return node;
-        }
-    }
-    inorder (node) {
-      if (node !== null) {
-          this.inorder(node.left);
-          console.log(node.data);
-          this.inorder(node.right);
+    search (value){
+      if (this.root === null) {
+        return false;
       }
+      let current = this.root,
+          found = false;
+      while(current && !found){
+          if(value < current.value){
+              current = current.left;
+          } else if(value > current.value){
+              current = current.right;
+          } else {
+              found = true;
+          }
+      }
+      if(!found) return undefined;
+      return current;
     }
-    preorder (node) {
-        if (node !== null) {
-            console.log(node.data);
-            this.preorder(node.left);
-            this.preorder(node.right);
-        }
+    inorder () {
+      let data = [];
+      function traverse(node){
+          if (node.left) {
+            traverse(node.left);
+          }
+          data.push(node.value);
+          if (node.right) {
+            traverse(node.right);
+          }
+      }
+      traverse(this.root);
+      return data;
     }
-    postorder (node) {
-        if(node !== null) {
-            this.postorder(node.left);
-            this.postorder(node.right);
-            console.log(node.data);
-        }
+    preorder () {
+      let data = [];
+      function traverse(node){
+          data.push(node.value);
+          if (node.left) {
+            traverse(node.left);
+          }
+          if (node.right) {
+            traverse(node.right);
+          }
+      }
+      traverse(this.root);
+      return data;
+    }
+    postorder () {
+      let data = [];
+      function traverse(node){
+          if (node.left) {
+            traverse(node.left);
+          }
+          if (node.right) {
+            traverse(node.right);
+          }
+          data.push(node.value);
+      }
+      traverse(this.root);
+      return data;
     }
   }
+
+  console.log("Creating Binary Tree");
+  let myBinaryTree = new BinaryTree;
+
+  console.log("Inserting 18, 20, 7, 17, 3, 25, 9, 1, 11 to the Binary Tree");
+  myBinaryTree.insert(18);
+  myBinaryTree.insert(20);
+  myBinaryTree.insert(7);
+  myBinaryTree.insert(17);
+  myBinaryTree.insert(3);
+  myBinaryTree.insert(25);
+  myBinaryTree.insert(9);
+  myBinaryTree.insert(1);
+  myBinaryTree.insert(11);
+
+  console.log(myBinaryTree);
+
+  const inorderBT = myBinaryTree.inorder();
+  console.log('in-order Binary Tree: ', inorderBT);
+
+  const preorderBT = myBinaryTree.preorder();
+  console.log('pre-order Binary Tree: ', preorderBT);
+
+  const postorderBT = myBinaryTree.postorder();
+  console.log('post-order Binary Tree: ', postorderBT);
+
+
+
   
   class Graph {
     // Implement methods for adding vertices, edges, DFS, BFS...
