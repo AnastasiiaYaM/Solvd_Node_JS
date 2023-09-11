@@ -34,13 +34,6 @@ Your task is to demonstrate your knowledge of data structures (stack, queue, tre
 Submit your JavaScript code along with detailed documentation and comments that explain your data structure implementations and algorithms. Ensure that your code is well-structured and adheres to best practices in data structures and algorithms.
 */
 
-class Node {
-  constructor(value){
-      this.value = value;
-      this.next = null;
-  }
-}
-
 class Stack {         // LIFO (Last In First Out) data structure type
   constructor() {
     this.data = [];
@@ -140,10 +133,76 @@ myStack.pop(4);
   console.log("The front element of the queue is");
   console.log(myQueue.peek());
   
-  //
+
+  class Node {
+    constructor(value){
+        this.value = value;
+        this.next = null;
+        this.left = null;
+        this.right = null;
+    }
+  }
 
   class BinaryTree {
-    // Implement methods for inserting nodes, searching, traversing...
+    constructor(){
+      this.root = null;
+    }
+    insert (value){
+      let newNode = new Node(value);
+      if (this.root === null) {
+        this.root = newNode;
+      } else {
+        this.insertNode(this.root, newNode);
+      }
+    }
+    insertNode (node, newNode){
+      if (newNode.data < node.data) {
+          if(node.left === null) {
+            node.left = newNode;
+          } else { 
+            this.insertNode(node.left, newNode);
+          }
+      } else {
+          if (node.right === null) {
+            node.right = newNode;
+          } else {
+            this.insertNode(node.right,newNode);
+          }
+      }
+    }
+    search (node, data) {
+        if (node === null) {
+            return null;
+        } else if (data < node.data) {
+            return this.search(node.left, data);
+        }
+        else if (data > node.data) {
+            return this.search(node.right, data);
+        } else {
+        return node;
+        }
+    }
+    inorder (node) {
+      if (node !== null) {
+          this.inorder(node.left);
+          console.log(node.data);
+          this.inorder(node.right);
+      }
+    }
+    preorder (node) {
+        if (node !== null) {
+            console.log(node.data);
+            this.preorder(node.left);
+            this.preorder(node.right);
+        }
+    }
+    postorder (node) {
+        if(node !== null) {
+            this.postorder(node.left);
+            this.postorder(node.right);
+            console.log(node.data);
+        }
+    }
   }
   
   class Graph {
