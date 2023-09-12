@@ -34,6 +34,8 @@ Your task is to demonstrate your knowledge of data structures (stack, queue, tre
 Submit your JavaScript code along with detailed documentation and comments that explain your data structure implementations and algorithms. Ensure that your code is well-structured and adheres to best practices in data structures and algorithms.
 */
 
+// Stack
+
 class Stack {         // LIFO (Last In First Out) data structure type
   constructor() {
     this.data = [];
@@ -90,7 +92,8 @@ console.log('The top element of the stack ', myStack.peek());
 console.log("Deleting from the stack");
 myStack.pop(4);
 
-  
+// Queue
+
   class Queue {                  // FIFO (First In First Out) data structure type
     constructor() {
       this.data = {};
@@ -132,7 +135,9 @@ myStack.pop(4);
   
   console.log("The front element of the queue is");
   console.log(myQueue.peek());
-  
+
+
+// Binary Tree
 
   class Node {
     constructor(value){
@@ -263,8 +268,8 @@ myStack.pop(4);
   console.log('post-order Binary Tree: ', postorderBT);
 
 
+// Graph
 
-  
   class Graph {
     constructor(){
       this.adjacencyList = {};
@@ -315,7 +320,7 @@ myStack.pop(4);
         });
     }
     return result;
-}
+  }
 }
 
 console.log("Creating Graph");
@@ -346,15 +351,7 @@ console.log("Kharkiv DFS: ", myGraph.depthFirstSearch("Kharkiv"));
 
 console.log("Kharkiv BFS: ", myGraph.breadthFirstSearch("Kharkiv"));
 
-
-
-
-
-
-    // Implement methods for adding vertices, edges, DFS, BFS...
- 
-  
-  
+// Linked List
 
 class LinkedList {
   constructor(){
@@ -426,6 +423,7 @@ class LinkedList {
     return current.value;
   }
 }
+
 
 console.log("Creating Linked List");
 let myList = new LinkedList();
@@ -593,6 +591,101 @@ const dfs = (node, min, max) => {
 let valBT = isValidBST(myBinaryTree);
 console.log('is valid BST ', valBT);
 
+// Graph Algorithms 
+
+class PriorityQueue {
+  constructor(){
+    this.values = [];
+  }
+  enqueue(val, priority) {
+    this.values.push({val, priority});
+    this.sort();
+  };
+  dequeue() {
+    return this.values.shift();
+  };
+  sort() {
+    this.values.sort((a, b) => a.priority - b.priority);
+  };
+}
+
+class WeightedGraph {
+    constructor() {
+        this.adjacencyList = {};
+    }
+    addVertex (vertex) {
+        if(!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+    }
+    addEdge (vertex1,vertex2, weight) {
+        this.adjacencyList[vertex1].push({node:vertex2,weight});
+        this.adjacencyList[vertex2].push({node:vertex1, weight});
+    }
+    dijkstra (start, finish) {
+        const nodes = new PriorityQueue();
+        const distances = {};
+        const previous = {};
+        let path = [] 
+        let smallest;
+       
+        for (let vertex in this.adjacencyList) {
+            if (vertex === start) {
+                distances[vertex] = 0;
+                nodes.enqueue(vertex, 0);
+            } else {
+                distances[vertex] = Infinity;
+                nodes.enqueue(vertex, Infinity);
+            }
+            previous[vertex] = null;
+        }
+        while (nodes.values.length) {
+            smallest = nodes.dequeue().val;
+            if (smallest === finish) {
+                while (previous[smallest]) {
+                    path.push(smallest);
+                    smallest = previous[smallest];
+                }
+                break;
+            } 
+            if (smallest || distances[smallest] !== Infinity) {
+                for (let neighbor in this.adjacencyList[smallest]) {
+                    let nextNode = this.adjacencyList[smallest][neighbor];
+                    let candidate = distances[smallest] + nextNode.weight;
+                    let nextNeighbor = nextNode.node;
+                    if (candidate < distances[nextNeighbor]) {
+                        distances[nextNeighbor] = candidate;
+                        previous[nextNeighbor] = smallest;
+                        nodes.enqueue(nextNeighbor, candidate);
+                    }
+                }
+            }
+        }
+        return path.concat(smallest).reverse();     
+    }
+}
+
+console.log("Creating Weighted Graph");
+let myWeightGraph = new WeightedGraph()
+
+myWeightGraph.addVertex("Kyiv");
+myWeightGraph.addVertex("Chernivtsi");
+myWeightGraph.addVertex("Kharkiv");
+myWeightGraph.addVertex("Odesa");
+myWeightGraph.addVertex("Lviv");
+
+console.log("Adding 8 edges");
+myWeightGraph.addEdge("Kharkiv", "Kyiv", 1);
+myWeightGraph.addEdge("Kyiv", "Lviv", 6);
+myWeightGraph.addEdge("Lviv", "Chernivtsi", 2);
+myWeightGraph.addEdge("Chernivtsi", "Kharkiv", 8);
+myWeightGraph.addEdge("Kharkiv", "Lviv", 7);
+myWeightGraph.addEdge("Lviv", "Odesa", 5);
+myWeightGraph.addEdge("Odesa", "Kharkiv", 3);
+myWeightGraph.addEdge("Odesa", "Chernivtsi", 4);
+
+console.log("The shortest path between 'Chernivtsi', 'Odesa' using Dijkstra's algorithm: ", myWeightGraph.dijkstra("Chernivtsi", "Odesa"));
+console.log("The shortest path between 'Chernivtsi', 'Kyiv' using Dijkstra's algorithm: ", myWeightGraph.dijkstra("Chernivtsi", "Kyiv"));
+console.log("The shortest path between 'Chernivtsi', 'Kharkiv' using Dijkstra's algorithm: ", myWeightGraph.dijkstra("Chernivtsi", "Kharkiv"));
+
 //Linked List Cycle
 
 function detectCycle (linkedList) {   // Floyd's Cycle Detection Algorithm (Tortoise and Hare algorithm)
@@ -610,6 +703,4 @@ function detectCycle (linkedList) {   // Floyd's Cycle Detection Algorithm (Tort
 
 console.log('detectCycle(myList) function returns', detectCycle(myList));
   
-  // Implement Min/Max Stack, Binary Search Tree, Graph Algorithms...
-  // Demonstrate usage and provide documentation...
-  
+ 
