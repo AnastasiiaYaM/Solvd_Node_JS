@@ -137,7 +137,7 @@ myStack.pop(4);
   class Node {
     constructor(value){
         this.value = value;
-        this.next = null;
+        this.next = null;            // for Linked List
         this.left = null;
         this.right = null;
     }
@@ -266,8 +266,93 @@ myStack.pop(4);
 
   
   class Graph {
-    // Implement methods for adding vertices, edges, DFS, BFS...
+    constructor(){
+      this.adjacencyList = {};
   }
+  addVertex(vertex){
+      if(!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+  }
+  addEdge(v1,v2){
+      this.adjacencyList[v1].push(v2);
+      this.adjacencyList[v2].push(v1);
+  }
+  depthFirstSearch (start){
+    const stack = [start];
+    const result = [];
+    const visited = {};
+    let currentVertex;
+    visited[start] = true;
+    while(stack.length){
+        currentVertex = stack.pop();
+        result.push(currentVertex);
+
+        this.adjacencyList[currentVertex].forEach(neighbor => {
+           if(!visited[neighbor]){
+               visited[neighbor] = true;
+               stack.push(neighbor)
+           } 
+        });
+    }
+    return result;
+  }
+  breadthFirstSearch (start) {
+    const queue = [start];
+    const result = [];
+    const visited = {};
+    let currentVertex;
+    visited[start] = true;
+
+    while(queue.length){
+        currentVertex = queue.shift();
+        result.push(currentVertex);
+       
+
+        this.adjacencyList[currentVertex].forEach(neighbor => {
+            if(!visited[neighbor]){
+                visited[neighbor] = true;
+                queue.push(neighbor);
+            }
+        });
+    }
+    return result;
+}
+}
+
+console.log("Creating Graph");
+let myGraph = new Graph;
+
+console.log("Adding 5 vertex");
+
+myGraph.addVertex("Kyiv");
+myGraph.addVertex("Chernivtsi");
+myGraph.addVertex("Kharkiv");
+myGraph.addVertex("Odesa");
+myGraph.addVertex("Lviv");
+
+console.log("Adding 8 edges");
+
+myGraph.addEdge("Kharkiv", "Kyiv");
+myGraph.addEdge("Kyiv", "Lviv");
+myGraph.addEdge("Lviv", "Chernivtsi");
+myGraph.addEdge("Chernivtsi", "Kharkiv");
+myGraph.addEdge("Kharkiv", "Lviv");
+myGraph.addEdge("Lviv", "Odesa");
+myGraph.addEdge("Odesa", "Kharkiv");
+myGraph.addEdge("Odesa", "Chernivtsi");
+
+console.log("My Graph: ", myGraph);
+
+console.log("Kharkiv DFS: ", myGraph.depthFirstSearch("Kharkiv"));
+
+console.log("Kharkiv BFS: ", myGraph.breadthFirstSearch("Kharkiv"));
+
+
+
+
+
+
+    // Implement methods for adding vertices, edges, DFS, BFS...
+ 
   
   
 
@@ -357,6 +442,7 @@ myList.delete(1);
 console.log('My single linked list after 1 deletion looks like: ', myList);
 
 console.log('Single linked list, search ', myList.search(2));
+
 
 // Min/Max Stack
 
@@ -476,6 +562,7 @@ myMaxStack.push(1);
 myMaxStack.getMax();
 myMaxStack.pop();
 myMaxStack.getMax();
+
 
 // Binary Search Tree checking
 
