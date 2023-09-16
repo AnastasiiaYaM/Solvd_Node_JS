@@ -50,28 +50,49 @@ class CustomHashTable {
   
     insert(key, value) {                            // set()
         const index = this._hash(key);
-        this.table[index] = [key, value];
+        if (this.table[index]) {
+            for (let i = 0; i < this.table[index].length; i++) {
+                if (this.table[index][i][0] === key) {
+                this.table[index][i][1] = value;
+                return;
+              }
+            }
+            this.table[index].push([key, value]);
+          } else {
+            this.table[index] = [];
+            this.table[index].push([key, value]);
+          }
         this.size++;
     }
   
     get(key) {
-        const index = this._hash(key);
-        return this.table[index];
+        const target = this._hash(key);
+        if (this.table[target]) {
+            for (let i = 0; i < this.table.length; i++) {
+                if (this.table[target][i][0] === key) {
+                    return this.table[target][i][1];
+                }
+            }
+        }
+        return undefined;
     }
   
     delete(key) {
         const index = this._hash(key);
-
         if (this.table[index] && this.table[index].length) {
-          this.table[index] = undefined;
-          this.size--;
-          return true;
+            for (let i = 0; i < this.table.length; i++) {
+                if (this.table[index][i][0] === key) {
+                    this.table[index].splice(i, 1);
+                    this.size--;
+                    return true;
+                }
+            }
         } else {
-          return false;
+            return false;
         }
     }
-  }
-  
+}
+
   const myHashTable = new CustomHashTable;
   myHashTable.insert("Anna", 500);
   myHashTable.insert("Petr", 600);
@@ -81,17 +102,21 @@ class CustomHashTable {
   myHashTable.insert("Olena", 5000);
   myHashTable.insert("Alina", 3000);
   myHashTable.insert("Viktor", 4000);
+  myHashTable.insert("Abcdef", 4000);
+  myHashTable.insert("Bcdefa", 400);
+  myHashTable.insert("Cdefab", 40);
 
-  console.log('myHashTable after 8 insertion', myHashTable);
+  console.log('myHashTable after 11 insertion', myHashTable);
 
   console.log(myHashTable.get("Olena"));
   console.log(myHashTable.get("Vadym"));
+  console.log(myHashTable.get("Abcdef"));
 
   console.log(myHashTable.delete("Alina"));
 
   console.log('myHashTable after deleting "Alina"', myHashTable);
 
-  
+
 
 
 
