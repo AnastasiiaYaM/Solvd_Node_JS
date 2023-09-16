@@ -34,8 +34,9 @@ For an extra challenge, consider implementing additional features for your hash 
 */
 
 class CustomHashTable {
-    constructor() {
-        this.table = new Array(100);
+    constructor(max = 100) {
+        this.max = max;
+        this.table = new Array(max);
         this.size = 0;
     }
   
@@ -91,6 +92,28 @@ class CustomHashTable {
             return false;
         }
     }
+    display() {
+        this.table.forEach((values, index) => {
+          const chainedValues = values.map(
+            ([key, value]) => `[ ${key}: ${value} ]`
+          );
+          console.log(`${index}: ${chainedValues}`);
+        });
+      }
+    resize(newMax) {
+        const tempTable = this.table;
+        this.max = newMax;
+        this.size = 0;
+        this.table = new Array(newMax);
+
+        tempTable.forEach((table) => {
+            if (!!table) {
+                table.forEach(node => {
+                    this.insert(node[0], node[1]);
+                })
+            }
+        });
+    };
 }
 
   const myHashTable = new CustomHashTable;
@@ -107,21 +130,20 @@ class CustomHashTable {
   myHashTable.insert("Cdefab", 40);
 
   console.log('myHashTable after 11 insertion', myHashTable);
+  myHashTable.display();
 
-  console.log(myHashTable.get("Olena"));
-  console.log(myHashTable.get("Vadym"));
-  console.log(myHashTable.get("Abcdef"));
+  console.log('get "Olena"', myHashTable.get("Olena"));
+  console.log('get "Vadym"', myHashTable.get("Vadym"));
+  console.log('get "Abcdef"', myHashTable.get("Abcdef"));
 
   console.log(myHashTable.delete("Alina"));
-
   console.log('myHashTable after deleting "Alina"', myHashTable);
+  myHashTable.display();
 
-
-
-
-
-
-
-
-
+  console.log(myHashTable.delete("Bcdefa"));
+  console.log('myHashTable after deleting "Bcdefa"', myHashTable);
+  myHashTable.display();
   
+  myHashTable.resize(15);
+  console.log('myHashTable after .resize(15)', myHashTable);
+  myHashTable.display();
